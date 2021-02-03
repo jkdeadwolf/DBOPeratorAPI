@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DBOPerator.Model</name>
+    </assembly>
+    <members>
+        <member name="T:DBOPerator.Model.ConStringModel">
+            <summary>
+            数据库链接model
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringModel.KeyID">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringModel.ConStringName">
+            <summary>
+            链接名字
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringModel.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringModel.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringModel.IsEnable">
+            <summary>
+            是否启用 true 启用
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringModel.IsDelete">
+            <summary>
+            是否删除 true 删除  false未删除
+            </summary>
+        </member>
+        <member name="T:DBOPerator.Model.DBTaskModel">
+            <summary>
+            数据库任务
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.KeyID">
+            <summary>
+            任务主键
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.BusinessKeyID">
+            <summary>
+            业务主键
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.BusinessType">
+            <summary>
+            任务类型 1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.BusinessContent">
+            <summary>
+            业务语句，如果此处不为空，就执行此处的语句
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.ExecuteStatus">
+            <summary>
+            执行结果 1待执行 2执行成功 3执行失败 
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.ExecuteMsg">
+            <summary>
+            执行结果为执行失败,此处不为空
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.IsDelete">
+            <summary>
+            是否删除 true 已删除
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.AddTime">
+            <summary>
+            添加事件
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.ModifyTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="T:DBOPerator.Model.PagerParamIn`1">
+            <summary>
+            分页入参
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:DBOPerator.Model.PagerParamIn`1.PageNo">
+            <summary>
+            当前页面
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.PagerParamIn`1.PageSize">
+            <summary>
+            每页数据量
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.PagerParamIn`1.Data">
+            <summary>
+            分页条件
+            </summary>
+        </member>
+        <member name="T:DBOPerator.Model.PagerParamOut`1">
+            <summary>
+            f分页返回参数
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:DBOPerator.Model.PagerParamOut`1.Total">
+            <summary>
+            总数据
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.PagerParamOut`1.Rows">
+            <summary>
+            分页条件
+            </summary>
+        </member>
+        <member name="T:DBOPerator.Model.Result">
+            <summary>
+            结果
+            </summary>
+        </member>
+        <member name="T:DBOPerator.Model.Result`1">
+            <summary>
+            带内容的 result
+            </summary>
+            <typeparam name="T">泛型</typeparam>
+        </member>
+        <member name="T:DBOPerator.Model.TableModel">
+            <summary>
+            表信息
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.TabelKeyID">
+            <summary>
+            表编号
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.ConStringKeyID">
+            <summary>
+            数据库连接编号
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.TableDesc">
+            <summary>
+            表描述
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.CreateStatus">
+            <summary>
+            下期创建情况 1无需创建 2 带创建 3已创建 4创建失败
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.ModifyStatus">
+            <summary>
+            下期更新情况 1无需修改 2 待更新 3已更新 4创建失败
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.CheckStatus">
+            <summary>
+            表检查结果 1无需检测 2待检测 3已检测通过 4检测错误
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.SplitType">
+            <summary>
+            分表方式 1 按年 2 按月 3按天 4按HASH
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.HashCount">
+            <summary>
+            hash最大值，只有hash分表才有值
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.MinTableName">
+            <summary>
+            最小表名
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.MaxTableName">
+            <summary>
+            最大表名
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.Status">
+            <summary>
+            模板状态 1启用 2禁用
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.IsDelete">
+            <summary>
+            是否删除
+            </summary>
+        </member>
+        <member name="T:DBOPerator.Model.TablePagerCondition">
+            <summary>
+            表分页请求参数
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TablePagerCondition.ConStringName">
+            <summary>
+            数据库连接名字
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TablePagerCondition.TableName">
+            <summary>
+            表名
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -3,3 +3,10 @@
 ################################################################################
 
 /DBOPeratorAPI/.vs/DBOPeratorAPI
+/DBOPeratorAPI/DBOPerator.Biz/bin/Debug/netstandard2.0
+/DBOPeratorAPI/DBOPerator.Biz/obj
+/DBOPeratorAPI/DBOPerator.Model/bin/Debug/netstandard2.0
+/DBOPeratorAPI/DBOPerator.Model/obj
+/DBOPeratorAPI/DBOPerator.Schedule/obj
+/DBOPeratorAPI/DBOPeratorAPI/bin/Debug/netcoreapp3.1
+/DBOPeratorAPI/DBOPeratorAPI/obj
