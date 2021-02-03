@@ -36,6 +36,16 @@ namespace DBOPerator.Model
         public bool IsEnable { get; set; }
 
         /// <summary>
+        /// 添加时间
+        /// </summary>
+        public DateTime AddTime { get; set; }
+
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime ModifyTime { get; set; } = DateTime.Now;
+
+        /// <summary>
         /// 是否删除 true 删除  false未删除
         /// </summary>
         public bool IsDelete { get; set; }

@@ -66,6 +66,16 @@ namespace DBOPerator.Model
         public int Status { get; set; }
 
         /// <summary>
+        /// 添加时间
+        /// </summary>
+        public DateTime AddTime { get; set; }
+
+        /// <summary>
+        /// 修改时间
+        /// </summary>
+        public DateTime ModifyTime { get; set; } = DateTime.Now;
+
+        /// <summary>
         /// 是否删除
         /// </summary>
         public bool IsDelete { get; set; }
