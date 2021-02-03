@@ -85,6 +85,7 @@ namespace DBOPeratorAPI.Controllers
         /// <param name="keyID">数据库链接主键</param>
         /// <param name="sql">sql语句</param>
         /// <returns>执行结果</returns>
+        [HttpPost("CreateTableByConKeyID/keyID")]
         public Result CreateTableByConKeyID(string keyID, [FromBody] string sql)
         {
             return new Result();
@@ -95,6 +96,7 @@ namespace DBOPeratorAPI.Controllers
         /// </summary>
         /// <param name="keyID">数据库主键</param>
         /// <returns>结果</returns>
+        [HttpGet("ReadDBTableChanges/keyID")]
         public Result ReadDBTableChanges(string keyID)
         {
             return new Result() { };
@@ -119,7 +121,7 @@ namespace DBOPeratorAPI.Controllers
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        [HttpPost("UpdateTableByKeyId")]
+        [HttpPost("AddTable")]
         public Result AddTable(TableModel paramIn)
         {
             return new Result();
@@ -246,8 +248,8 @@ namespace DBOPeratorAPI.Controllers
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        [HttpPost("EnableDBTask/Pager")]
-        public PagerParamOut<DBTaskModel> Pager(PagerParamIn<DBTaskCondition> paramIn)
+        [HttpPost("PagerDBTask")]
+        public PagerParamOut<DBTaskModel> PagerDBTask(PagerParamIn<DBTaskCondition> paramIn)
         {
             return new PagerParamOut<DBTaskModel>();
         }

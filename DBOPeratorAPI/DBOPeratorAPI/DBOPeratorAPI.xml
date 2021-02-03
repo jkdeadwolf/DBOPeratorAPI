@@ -151,7 +151,7 @@
             <param name="message">完结原因</param>
             <returns>结果</returns>
         </member>
-        <member name="M:DBOPeratorAPI.Controllers.DBController.Pager(DBOPerator.Model.PagerParamIn{DBOPerator.Model.DBTaskCondition})">
+        <member name="M:DBOPeratorAPI.Controllers.DBController.PagerDBTask(DBOPerator.Model.PagerParamIn{DBOPerator.Model.DBTaskCondition})">
             <summary>
             数据库任务分页
             </summary>
