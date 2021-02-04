@@ -14,7 +14,10 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public Result AddDBTask(DBTaskModel paramIn)
         {
-            return new Result();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            paramIn.KeyID = KeyIDHelper.Generator();
+            var rt = con.Insertable<DBTaskModel>(paramIn).ExecuteCommand();
+            return new Result() { Success = rt > 0 };
         }
 
         /// <summary>
@@ -24,7 +27,9 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public Result DelDBTask(string keyID)
         {
-            return new Result();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var rt = con.Updateable<DBTaskModel>(new DBTaskModel() { IsDelete = true }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            return new Result() { Success = rt > 0 };
         }
 
         /// <summary>
@@ -35,7 +40,9 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public Result CompleteDBTask(string keyID, string message)
         {
-            return new Result();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var rt = con.Updateable<DBTaskModel>(new DBTaskModel() { ExecuteStatus = 3, ExecuteMsg = message }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            return new Result() { Success = rt > 0 };
         }
 
         /// <summary>
@@ -45,7 +52,37 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public PagerParamOut<DBTaskModel> PagerDBTask(PagerParamIn<DBTaskCondition> paramIn)
         {
-            return new PagerParamOut<DBTaskModel>();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var where = con.Queryable<DBTaskModel>();
+            if (string.IsNullOrWhiteSpace(paramIn?.Data?.BusinessContent) == false)
+            {
+                where.Where(p => p.BusinessContent.Contains(paramIn.Data.BusinessContent));
+            }
+
+            if (string.IsNullOrWhiteSpace(paramIn?.Data?.ExecuteMsg) == false)
+            {
+                where.Where(p => p.ExecuteMsg.Contains(paramIn.Data.ExecuteMsg));
+            }
+
+            if (paramIn.Data != null && paramIn.Data.BusinessType != 0)
+            {
+                where.Where(p => p.BusinessType == paramIn.Data.BusinessType);
+            }
+
+            if (paramIn.Data != null && paramIn.Data.ExecuteStatus != 0)
+            {
+                where.Where(p => p.ExecuteStatus == paramIn.Data.ExecuteStatus);
+            }
+
+            if (string.IsNullOrWhiteSpace(paramIn.Data?.Remark))
+            {
+                where.Where(p => p.Remark.Contains(paramIn.Data.Remark));
+            }
+
+            int totalCount = 0;
+            var data = where.ToPageList(paramIn.PageNo, paramIn.PageSize, ref totalCount);
+
+            return new PagerParamOut<DBTaskModel>() { Success = true, Rows = data, PageSize = paramIn.PageSize, PageNo = paramIn.PageNo, Total = totalCount };
         }
     }
 }
