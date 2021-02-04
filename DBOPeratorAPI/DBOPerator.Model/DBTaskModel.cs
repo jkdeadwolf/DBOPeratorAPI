@@ -37,7 +37,12 @@ namespace DBOPerator.Model
         /// <summary>
         /// 执行结果为执行失败,此处不为空
         /// </summary>
-        public int ExecuteMsg { get; set; }
+        public string ExecuteMsg { get; set; }
+
+        /// <summary>
+        /// 已执行次数，失败次数
+        /// </summary>
+        public int ExecuteTimes { get; set; }
 
         /// <summary>
         /// 是否删除 true 已删除

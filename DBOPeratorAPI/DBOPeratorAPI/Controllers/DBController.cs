@@ -1,4 +1,5 @@
-﻿using DBOPerator.Model;
+﻿using DBOPerator.Biz;
+using DBOPerator.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,29 +22,29 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("AddConString")]
         public Result AddConString([FromBody] string connectionString)
         {
-            return new Result();
+            return new BConString().AddConString(connectionString);
         }
 
-        /// <summary>
-        /// 修改链接
-        /// </summary>
-        /// <param name="keyID">链接对应逐渐</param>
-        /// <returns>添加结果</returns>
-        [HttpPost("UpdateConString")]
-        public Result UpdateConString(string keyID)
-        {
-            return new Result();
-        }
+        ///// <summary>
+        ///// 修改链接
+        ///// </summary>
+        ///// <param name="keyID">链接对应逐渐</param>
+        ///// <returns>添加结果</returns>
+        //[HttpPost("UpdateConString/keyID")]
+        //public Result UpdateConString(string keyID,[FromBody]string connectionString)
+        //{
+        //    return new BConString().UpdateConString();
+        //}
 
         /// <summary>
         /// 删除链接
         /// </summary>
         /// <param name="keyID">链接对应主键</param>
         /// <returns>删除结果</returns>
-        [HttpPost("DelConString")]
+        [HttpPost("DelConString/keyID")]
         public Result DelConString(string keyID)
         {
-            return new Result();
+            return new BConString().DelConString(keyID);
         }
 
         /// <summary>
@@ -51,10 +52,10 @@ namespace DBOPeratorAPI.Controllers
         /// </summary>
         /// <param name="keyID">链接对应主键</param>
         /// <returns>启用结果</returns>
-        [HttpPost("EnableConString")]
+        [HttpPost("EnableConString/keyID")]
         public Result EnableConString(string keyID)
         {
-            return new Result();
+            return new BConString().EnableConString(keyID);
         }
 
         /// <summary>
@@ -62,10 +63,10 @@ namespace DBOPeratorAPI.Controllers
         /// </summary>
         /// <param name="keyID">链接对应主键</param>
         /// <returns>删除结果</returns>
-        [HttpPost("DisableConString")]
+        [HttpPost("DisableConString/keyID")]
         public Result DisableConString(string keyID)
         {
-            return new Result();
+            return new BConString().DisableConString(keyID);
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("PagerConString")]
         public PagerParamOut<ConStringModel> PagerConString(PagerParamIn<object> paramIn)
         {
-            return new PagerParamOut<ConStringModel>();
+            return new BConString().PagerConString(paramIn);
         }
 
         /// <summary>
@@ -88,7 +89,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("CreateTableByConKeyID/keyID")]
         public Result CreateTableByConKeyID(string keyID, [FromBody] string sql)
         {
-            return new Result();
+            return new BConString().CreateTableByConKeyID(keyID, sql);
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpGet("ReadDBTableChanges/keyID")]
         public Result ReadDBTableChanges(string keyID)
         {
-            return new Result() { };
+            return new BConString().ReadDBTableChanges(keyID);
         }
 
         #endregion
@@ -113,7 +114,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("PagerTableModel")]
         public PagerParamOut<TableModel> PagerTableModel(PagerParamIn<TablePagerCondition> paramIn)
         {
-            return new PagerParamOut<TableModel>();
+            return new BTable().PagerTableModel(paramIn);
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("AddTable")]
         public Result AddTable(TableModel paramIn)
         {
-            return new Result();
+            return new BTable().AddTable(paramIn);
         }
 
         /// <summary>
@@ -135,7 +136,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("UpdateTableByKeyId")]
         public Result UpdateTableByKeyId(TableModel paramIn)
         {
-            return new Result();
+            return new BTable().UpdateTableByKeyId(paramIn);
         }
 
         /// <summary>
@@ -146,7 +147,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpGet("GetTableByKeyId/keyid")]
         public Result<TableModel> GetTableByKeyId(string keyid)
         {
-            return new Result<TableModel>();
+            return new BTable().GetTableByKeyId(keyid);
         }
 
         /// <summary>
@@ -155,9 +156,9 @@ namespace DBOPeratorAPI.Controllers
         /// <param name="keyid">主键</param>
         /// <returns>结果</returns>
         [HttpGet("EnableTableByKeyId/keyid")]
-        public Result<TableModel> EnableTableByKeyId(string keyid)
+        public Result EnableTableByKeyId(string keyid)
         {
-            return new Result<TableModel>();
+            return new BTable().EnableTableByKeyId(keyid);
         }
 
         /// <summary>
@@ -166,9 +167,9 @@ namespace DBOPeratorAPI.Controllers
         /// <param name="keyid">主键</param>
         /// <returns>结果</returns>
         [HttpGet("DisableTableByKeyId/keyid")]
-        public Result<TableModel> DisableTableByKeyId(string keyid)
+        public Result DisableTableByKeyId(string keyid)
         {
-            return new Result<TableModel>();
+            return new BTable().DisableTableByKeyId(keyid);
         }
 
         /// <summary>
@@ -179,7 +180,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpGet("DelTableByKeyId/keyid")]
         public Result<TableModel> DelTableByKeyId(string keyid)
         {
-            return new Result<TableModel>();
+            return new BTable().DelTableByKeyId(keyid);
         }
 
         /// <summary>
@@ -190,7 +191,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpGet("GetTemplateSqlCreate/keyid")]
         public Result GetTemplateSqlCreate(string keyid)
         {
-            return new Result();
+            return new BTable().GetTemplateSqlCreate(keyid);
         }
 
         /// <summary>
@@ -203,7 +204,7 @@ namespace DBOPeratorAPI.Controllers
         public Result ExecuteCreateTable(string tableKeyID, [FromBody] string sql)
         {
             ////当sql为空，获取表模板的sql语句执行建表，不为空执行入参中的sql建表
-            return new Result();
+            return new BTable().ExecuteCreateTable(tableKeyID, sql);
         }
         #endregion
 
@@ -217,7 +218,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("AddDBTask")]
         public Result AddDBTask(DBTaskModel paramIn)
         {
-            return new Result();
+            return new BTask().AddDBTask(paramIn);
         }
 
         /// <summary>
@@ -228,7 +229,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("DelDBTask/keyID")]
         public Result DelDBTask(string keyID)
         {
-            return new Result();
+            return new BTask().DelDBTask(keyID);
         }
 
         /// <summary>
@@ -240,7 +241,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("CompleteDBTask/keyID")]
         public Result CompleteDBTask(string keyID, [FromBody] string message)
         {
-            return new Result();
+            return new BTask().CompleteDBTask(keyID, message);
         }
 
         /// <summary>
@@ -251,7 +252,7 @@ namespace DBOPeratorAPI.Controllers
         [HttpPost("PagerDBTask")]
         public PagerParamOut<DBTaskModel> PagerDBTask(PagerParamIn<DBTaskCondition> paramIn)
         {
-            return new PagerParamOut<DBTaskModel>();
+            return new BTask().PagerDBTask(paramIn);
         }
         #endregion
     }

@@ -34,6 +34,16 @@
             是否启用 true 启用
             </summary>
         </member>
+        <member name="P:DBOPerator.Model.ConStringModel.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringModel.ModifyTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
         <member name="P:DBOPerator.Model.ConStringModel.IsDelete">
             <summary>
             是否删除 true 删除  false未删除
@@ -72,6 +82,11 @@
         <member name="P:DBOPerator.Model.DBTaskModel.ExecuteMsg">
             <summary>
             执行结果为执行失败,此处不为空
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.ExecuteTimes">
+            <summary>
+            已执行次数，失败次数
             </summary>
         </member>
         <member name="P:DBOPerator.Model.DBTaskModel.IsDelete">
@@ -195,6 +210,16 @@
         <member name="P:DBOPerator.Model.TableModel.Status">
             <summary>
             模板状态 1启用 2禁用
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.ModifyTime">
+            <summary>
+            修改时间
             </summary>
         </member>
         <member name="P:DBOPerator.Model.TableModel.IsDelete">

@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DBOPerator.API</name>
+    </assembly>
+    <members>
+        <member name="T:DBOPeratorAPI.Controllers.DBController">
+            <summary>
+            db操作类
+            </summary>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.AddConString(System.String)">
+            <summary>
+            添加链接
+            </summary>
+            <param name="connectionString">connectionstring</param>
+            <returns>添加结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.DelConString(System.String)">
+            <summary>
+            删除链接
+            </summary>
+            <param name="keyID">链接对应主键</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.EnableConString(System.String)">
+            <summary>
+            启用链接
+            </summary>
+            <param name="keyID">链接对应主键</param>
+            <returns>启用结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.DisableConString(System.String)">
+            <summary>
+            禁用链接
+            </summary>
+            <param name="keyID">链接对应主键</param>
+            <returns>删除结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.PagerConString(DBOPerator.Model.PagerParamIn{System.Object})">
+            <summary>
+            数据库链接分页
+            </summary>
+            <param name="paramIn">入参</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.CreateTableByConKeyID(System.String,System.String)">
+            <summary>
+            根据数据库链接执行连接下所有库进行创建表操作
+            </summary>
+            <param name="keyID">数据库链接主键</param>
+            <param name="sql">sql语句</param>
+            <returns>执行结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.ReadDBTableChanges(System.String)">
+            <summary>
+            手动识别数据库建表差异
+            </summary>
+            <param name="keyID">数据库主键</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.PagerTableModel(DBOPerator.Model.PagerParamIn{DBOPerator.Model.TablePagerCondition})">
+            <summary>
+            表设计分页
+            </summary>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.AddTable(DBOPerator.Model.TableModel)">
+            <summary>
+            新增模板表
+            </summary>
+            <param name="paramIn">入参</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.UpdateTableByKeyId(DBOPerator.Model.TableModel)">
+            <summary>
+            更新表信息
+            </summary>
+            <param name="paramIn">入参</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.GetTableByKeyId(System.String)">
+            <summary>
+            根据主键获取模板表信息
+            </summary>
+            <param name="keyid">主键</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.EnableTableByKeyId(System.String)">
+            <summary>
+            根据主键启用模板表信息
+            </summary>
+            <param name="keyid">主键</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.DisableTableByKeyId(System.String)">
+            <summary>
+            根据主键禁用模板表信息
+            </summary>
+            <param name="keyid">主键</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.DelTableByKeyId(System.String)">
+            <summary>
+            根据主键删除模板表信息
+            </summary>
+            <param name="keyid">主键</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.GetTemplateSqlCreate(System.String)">
+            <summary>
+            获取建表模板
+            </summary>
+            <param name="keyid">表主键</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.ExecuteCreateTable(System.String,System.String)">
+            <summary>
+            执行表的创建
+            </summary>
+            <param name="tableKeyID">表主键</param>
+            <param name="sql">待执行的sql语句</param>
+            <returns>执行结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.AddDBTask(DBOPerator.Model.DBTaskModel)">
+            <summary>
+            添加db任务
+            </summary>
+            <param name="paramIn">入参</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.DelDBTask(System.String)">
+            <summary>
+            删除db任务
+            </summary>
+            <param name="keyID">主键</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.CompleteDBTask(System.String,System.String)">
+            <summary>
+            完结db任务
+            </summary>
+            <param name="keyID">主键</param>
+            <param name="message">完结原因</param>
+            <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.PagerDBTask(DBOPerator.Model.PagerParamIn{DBOPerator.Model.DBTaskCondition})">
+            <summary>
+            数据库任务分页
+            </summary>
+            <param name="paramIn">入参</param>
+            <returns>结果</returns>
+        </member>
+    </members>
+</doc>
