@@ -25,16 +25,16 @@ namespace DBOPeratorAPI.Controllers
             return new BConString().AddConString(connectionString);
         }
 
-        ///// <summary>
-        ///// 修改链接
-        ///// </summary>
-        ///// <param name="keyID">链接对应逐渐</param>
-        ///// <returns>添加结果</returns>
-        //[HttpPost("UpdateConString/keyID")]
-        //public Result UpdateConString(string keyID,[FromBody]string connectionString)
-        //{
-        //    return new BConString().UpdateConString();
-        //}
+        /// <summary>
+        /// 修改链接
+        /// </summary>
+        /// <param name="keyID">链接对应逐渐</param>
+        /// <returns>添加结果</returns>
+        [HttpPost("UpdateConString/keyID")]
+        public Result UpdateConString(string keyID, [FromBody] ConStringModel paramIn)
+        {
+            return new BConString().UpdateConString(keyID, paramIn);
+        }
 
         /// <summary>
         /// 删除链接
@@ -75,7 +75,7 @@ namespace DBOPeratorAPI.Controllers
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
         [HttpPost("PagerConString")]
-        public PagerParamOut<ConStringModel> PagerConString(PagerParamIn<object> paramIn)
+        public PagerParamOut<ConStringModel> PagerConString(PagerParamIn<ConStringCondition> paramIn)
         {
             return new BConString().PagerConString(paramIn);
         }

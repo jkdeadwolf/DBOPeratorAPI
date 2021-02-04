@@ -12,4 +12,8 @@
     <None Remove="DBOPerator.Model.xml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="SqlSugarCore" Version="5.0.2.4" />
+  </ItemGroup>
+
 </Project>

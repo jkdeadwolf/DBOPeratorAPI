@@ -8,8 +8,18 @@ namespace DBOPerator.Model
     /// f分页返回参数
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class PagerParamOut<T>: PagerParamIn<T>
+    public class PagerParamOut<T> : PagerParamIn<T>
     {
+        /// <summary>
+        /// 是否成功
+        /// </summary>
+        public bool Success { get; set; }
+
+        /// <summary>
+        /// 错误信息
+        /// </summary>
+        public string Msg { get; set; }
+
         /// <summary>
         /// 总数据
         /// </summary>

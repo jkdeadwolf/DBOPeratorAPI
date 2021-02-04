@@ -4,6 +4,16 @@
         <name>DBOPerator.Model</name>
     </assembly>
     <members>
+        <member name="T:DBOPerator.Model.ConStringCondition">
+            <summary>
+            连接名字
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConStringCondition.ConName">
+            <summary>
+            连接名字
+            </summary>
+        </member>
         <member name="T:DBOPerator.Model.ConStringModel">
             <summary>
             数据库链接model
@@ -76,7 +86,7 @@
         </member>
         <member name="P:DBOPerator.Model.DBTaskModel.ExecuteStatus">
             <summary>
-            执行结果 1待执行 2执行成功 3执行失败 
+            执行结果 1待执行 2执行中 3执行成功 4执行失败 
             </summary>
         </member>
         <member name="P:DBOPerator.Model.DBTaskModel.ExecuteMsg">
@@ -87,6 +97,11 @@
         <member name="P:DBOPerator.Model.DBTaskModel.ExecuteTimes">
             <summary>
             已执行次数，失败次数
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskModel.Remark">
+            <summary>
+            备注
             </summary>
         </member>
         <member name="P:DBOPerator.Model.DBTaskModel.IsDelete">
@@ -131,6 +146,16 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="P:DBOPerator.Model.PagerParamOut`1.Success">
+            <summary>
+            是否成功
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.PagerParamOut`1.Msg">
+            <summary>
+            错误信息
+            </summary>
+        </member>
         <member name="P:DBOPerator.Model.PagerParamOut`1.Total">
             <summary>
             总数据
@@ -144,6 +169,11 @@
         <member name="T:DBOPerator.Model.Result">
             <summary>
             结果
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.Result.Success">
+            <summary>
+            是否成功
             </summary>
         </member>
         <member name="T:DBOPerator.Model.Result`1">
@@ -165,6 +195,11 @@
         <member name="P:DBOPerator.Model.TableModel.ConStringKeyID">
             <summary>
             数据库连接编号
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableModel.ConStringName">
+            <summary>
+            数据库连接名字
             </summary>
         </member>
         <member name="P:DBOPerator.Model.TableModel.TableDesc">

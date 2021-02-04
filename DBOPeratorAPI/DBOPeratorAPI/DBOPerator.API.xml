@@ -16,6 +16,13 @@
             <param name="connectionString">connectionstring</param>
             <returns>添加结果</returns>
         </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.UpdateConString(System.String,DBOPerator.Model.ConStringModel)">
+            <summary>
+            修改链接
+            </summary>
+            <param name="keyID">链接对应逐渐</param>
+            <returns>添加结果</returns>
+        </member>
         <member name="M:DBOPeratorAPI.Controllers.DBController.DelConString(System.String)">
             <summary>
             删除链接
@@ -37,7 +44,7 @@
             <param name="keyID">链接对应主键</param>
             <returns>删除结果</returns>
         </member>
-        <member name="M:DBOPeratorAPI.Controllers.DBController.PagerConString(DBOPerator.Model.PagerParamIn{System.Object})">
+        <member name="M:DBOPeratorAPI.Controllers.DBController.PagerConString(DBOPerator.Model.PagerParamIn{DBOPerator.Model.ConStringCondition})">
             <summary>
             数据库链接分页
             </summary>

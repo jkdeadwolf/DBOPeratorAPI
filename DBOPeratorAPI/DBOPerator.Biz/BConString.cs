@@ -17,7 +17,30 @@ namespace DBOPerator.Biz
         /// <returns>添加结果</returns>
         public Result AddConString(string connectionString)
         {
-            return new Result();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var data = new ConStringModel()
+            {
+                KeyID = KeyIDHelper.Generator(),
+                ConStringName = string.Empty,
+                ConnectionString = connectionString,
+                Remark = string.Empty,
+                IsEnable = true,
+            };
+
+            int runRt = con.Insertable<ConStringModel>(data).ExecuteCommand();
+            return new Result() { Success = runRt > 0, Msg = "更新失败" };
+        }
+
+
+        /// <summary>
+        /// 删除链接
+        /// </summary>
+        /// <param name="keyID">链接对应主键</param>
+        /// <returns>删除结果</returns>
+        public ConStringModel GetConString(string keyID)
+        {
+            var con = ConnectionHelper.GetSqlSugarClient();
+            return con.Queryable<ConStringModel>().Where(p => p.KeyID == keyID).First();
         }
 
         /// <summary>
@@ -25,9 +48,16 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="keyID">链接对应逐渐</param>
         /// <returns>添加结果</returns>
-        public Result UpdateConString(string keyID, string connectionString)
+        public Result UpdateConString(string keyID, ConStringModel paramIn)
         {
-            return new Result();
+            if (string.IsNullOrWhiteSpace(keyID))
+            {
+                return new Result() { Msg = "主键不能为空" };
+            }
+
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var count = con.Updateable<ConStringModel>(new ConStringModel() { ConStringName = paramIn.ConStringName, Remark = paramIn.Remark }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            return new Result() { Success = count > 0 };
         }
 
         /// <summary>
@@ -37,7 +67,9 @@ namespace DBOPerator.Biz
         /// <returns>删除结果</returns>
         public Result DelConString(string keyID)
         {
-            return new Result();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var count = con.Updateable<ConStringModel>(new ConStringModel() { IsDelete = true }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            return new Result() { Success = count > 0 };
         }
 
         /// <summary>
@@ -47,7 +79,9 @@ namespace DBOPerator.Biz
         /// <returns>启用结果</returns>
         public Result EnableConString(string keyID)
         {
-            return new Result();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var count = con.Updateable<ConStringModel>(new ConStringModel() { IsEnable = true }).ExecuteCommand();
+            return new Result() { Success = count > 0 };
         }
 
         /// <summary>
@@ -57,7 +91,9 @@ namespace DBOPerator.Biz
         /// <returns>删除结果</returns>
         public Result DisableConString(string keyID)
         {
-            return new Result();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var count = con.Updateable<ConStringModel>(new ConStringModel() { IsEnable = false }).ExecuteCommand();
+            return new Result() { Success = count > 0 };
         }
 
         /// <summary>
@@ -65,9 +101,18 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        public PagerParamOut<ConStringModel> PagerConString(PagerParamIn<object> paramIn)
+        public PagerParamOut<ConStringModel> PagerConString(PagerParamIn<ConStringCondition> paramIn)
         {
-            return new PagerParamOut<ConStringModel>();
+            var con = ConnectionHelper.GetSqlSugarClient();
+            int totalCount = 0;
+            var where = con.Queryable<ConStringModel>();
+            if (string.IsNullOrWhiteSpace(paramIn.Data.ConName) == false)
+            {
+                where.Where(p => p.ConStringName.Contains(paramIn.Data.ConName));
+            }
+
+            var list = where.ToPageList(paramIn.PageNo, paramIn.PageSize, ref totalCount);
+            return new PagerParamOut<ConStringModel>() { Success = true, Rows = list };
         }
 
         /// <summary>
@@ -78,7 +123,33 @@ namespace DBOPerator.Biz
         /// <returns>执行结果</returns>
         public Result CreateTableByConKeyID(string keyID, string sql)
         {
-            return new Result();
+            try
+            {
+                var data = this.GetConString(keyID);
+                if (string.IsNullOrWhiteSpace(data?.ConnectionString))
+                {
+                    return new Result() { Msg = "查无此数据库配置" };
+                }
+
+                ////整库时间较久，下发任务,做异步执行
+                if (string.IsNullOrWhiteSpace(sql) == false)
+                {
+                    return new BTask().AddDBTask(new DBTaskModel()
+                    {
+                        BusinessKeyID = keyID,
+                        BusinessType = 1,
+                    });
+                }
+
+                var con = ConnectionHelper.GetSqlSugarClientByConString(data.ConnectionString);
+                int runRt = con.Ado.ExecuteCommand(sql);
+                return new Result() { Success = runRt > 0 };
+            }
+            catch (Exception e)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Error(e);
+                return new Result() { Msg = $"根据数据库执行sql出错,{e.Message}" };
+            }
         }
 
         /// <summary>
@@ -88,7 +159,26 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public Result ReadDBTableChanges(string keyID)
         {
-            return new Result() { };
+            try
+            {
+                var data = this.GetConString(keyID);
+                if (string.IsNullOrWhiteSpace(data?.ConnectionString))
+                {
+                    return new Result() { Msg = "查无此数据库配置" };
+                }
+
+                ////整库时间较久，下发任务
+                return new BTask().AddDBTask(new DBTaskModel()
+                {
+                    BusinessKeyID = keyID,
+                    BusinessType = 2,
+                });
+            }
+            catch (Exception e)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Error(e);
+                return new Result() { Msg = $"根据数据库识别表出错,{e.Message}" };
+            }
         }
     }
 }

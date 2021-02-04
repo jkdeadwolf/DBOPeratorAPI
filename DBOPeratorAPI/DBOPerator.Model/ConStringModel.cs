@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace DBOPerator.Model
         /// <summary>
         /// 主键
         /// </summary>
+        [SugarColumn(IsPrimaryKey = true)]
         public string KeyID { get; set; }
 
         /// <summary>
@@ -38,7 +40,7 @@ namespace DBOPerator.Model
         /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTime AddTime { get; set; }
+        public DateTime AddTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 修改时间

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlSugar;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,12 +14,18 @@ namespace DBOPerator.Model
         /// <summary>
         /// 表编号
         /// </summary>
+        [SugarColumn(IsPrimaryKey = true)]
         public string TabelKeyID { get; set; }
 
         /// <summary>
         /// 数据库连接编号
         /// </summary>
         public string ConStringKeyID { get; set; }
+
+        /// <summary>
+        /// 数据库连接名字
+        /// </summary>
+        public string ConStringName { get; set; }
 
         /// <summary>
         /// 表描述
@@ -63,12 +70,12 @@ namespace DBOPerator.Model
         /// <summary>
         /// 模板状态 1启用 2禁用
         /// </summary>
-        public int Status { get; set; }
+        public int IsEnable { get; set; }
 
         /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTime AddTime { get; set; }
+        public DateTime AddTime { get; set; } = DateTime.Now;
 
         /// <summary>
         /// 修改时间
