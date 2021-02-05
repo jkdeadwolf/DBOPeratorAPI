@@ -161,12 +161,19 @@ namespace DBOPerator.Biz.Task
             ////去掉数字，看看他的原型是什么
             var oritable = Regex.Replace(currentTable, "[0-9][0-9]*", string.Empty);
             var sameTables = tables.FindAll(p => p.Table_Name.StartsWith(oritable));
-            if
+            var list = this.GetAllValue(sameTables);
         }
 
+        /// <summary>
+        /// 获取所有表后缀
+        /// </summary>
+        /// <param name="tables">同名表</param>
+        /// <returns>结果</returns>
         private List<int> GetAllValue(List<Table> tables)
         {
-
+            List<int> result = new List<int>();
+            tables.ForEach(p => result.Add(Convert.ToInt32(Regex.Match(p.Table_Name, "[0-9][0-9]*").Value)));
+            return result;
         }
     }
 }
