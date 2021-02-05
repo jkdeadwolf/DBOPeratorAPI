@@ -2,6 +2,7 @@
 using DBOPerator.Model;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace DBOPeratorAPI.Controllers
 {
@@ -253,6 +254,26 @@ namespace DBOPeratorAPI.Controllers
         public PagerParamOut<DBTaskModel> PagerDBTask(PagerParamIn<DBTaskCondition> paramIn)
         {
             return new BTask().PagerDBTask(paramIn);
+        }
+
+        /// <summary>
+        /// 执行task
+        /// </summary>
+        /// <param name="taskID">任务编号</param>
+        [HttpGet("ExecuteTask/taskID")]
+        public void ExecuteTask(string taskID)
+        {
+            new BTask().ExecuteTask(taskID);
+        }
+
+        /// <summary>
+        /// 执行task
+        /// </summary>
+        /// <param name="maxRunTimes">最大执行次数</param>
+        [HttpGet("GetTasks/maxRunTimes")]
+        public Result<List<DBTaskModel>> GetTasks(int maxRunTimes)
+        {
+            return new BTask().GetTasks(maxRunTimes);
         }
         #endregion
     }

@@ -4,6 +4,11 @@
         <name>DBOPerator.Model</name>
     </assembly>
     <members>
+        <member name="T:DBOPerator.Model.BusinessType">
+            <summary>
+            1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
+            </summary>
+        </member>
         <member name="T:DBOPerator.Model.ConStringCondition">
             <summary>
             连接名字
@@ -57,6 +62,41 @@
         <member name="P:DBOPerator.Model.ConStringModel.IsDelete">
             <summary>
             是否删除 true 删除  false未删除
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.Table.Table_Name">
+            <summary>
+            表名
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.Table.Table_Comment">
+            <summary>
+            表备注
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskCondition.ExecuteStatus">
+            <summary>
+            执行结果 0全部 1待执行 2执行中 3执行成功 4执行失败 
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskCondition.Remark">
+            <summary>
+            任务备注
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskCondition.BusinessType">
+            <summary>
+            任务类型 1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskCondition.ExecuteMsg">
+            <summary>
+            执行结果msg
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTaskCondition.BusinessContent">
+            <summary>
+            业务语句，如果此处不为空，就执行此处的语句
             </summary>
         </member>
         <member name="T:DBOPerator.Model.DBTaskModel">
@@ -242,7 +282,7 @@
             最大表名
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.Status">
+        <member name="P:DBOPerator.Model.TableModel.IsEnable">
             <summary>
             模板状态 1启用 2禁用
             </summary>

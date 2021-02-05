@@ -157,7 +157,7 @@ namespace DBOPerator.Biz
                     return new BTask().AddDBTask(new DBTaskModel()
                     {
                         BusinessKeyID = tableKeyID,
-                        BusinessType = 3,
+                        BusinessType = BusinessType.表建表,
                         BusinessContent = sql
                     });
                 }

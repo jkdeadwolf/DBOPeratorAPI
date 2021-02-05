@@ -24,7 +24,7 @@ namespace DBOPerator.Model
         /// <summary>
         /// 任务类型 1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
         /// </summary>
-        public int BusinessType { get; set; }
+        public BusinessType BusinessType { get; set; }
 
         /// <summary>
         /// 业务语句，如果此处不为空，就执行此处的语句

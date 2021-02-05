@@ -137,7 +137,7 @@ namespace DBOPerator.Biz
                     return new BTask().AddDBTask(new DBTaskModel()
                     {
                         BusinessKeyID = keyID,
-                        BusinessType = 1,
+                        BusinessType = BusinessType.整库建表,
                     });
                 }
 
@@ -171,7 +171,7 @@ namespace DBOPerator.Biz
                 return new BTask().AddDBTask(new DBTaskModel()
                 {
                     BusinessKeyID = keyID,
-                    BusinessType = 2,
+                    BusinessType = BusinessType.整库表分析,
                 });
             }
             catch (Exception e)
