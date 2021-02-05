@@ -23,9 +23,9 @@ namespace DBOPerator.Model
         public string ConStringKeyID { get; set; }
 
         /// <summary>
-        /// 数据库连接名字
+        /// 数据库名字
         /// </summary>
-        public string ConStringName { get; set; }
+        public string DatabaseName { get; set; }
 
         /// <summary>
         /// 表描述
@@ -48,9 +48,9 @@ namespace DBOPerator.Model
         public int CheckStatus { get; set; }
 
         /// <summary>
-        /// 分表方式 1 按年 2 按月 3按天 4按HASH
+        /// 分表方式  1 无 2 按年 3 按月 4按天 5按HASH
         /// </summary>
-        public int SplitType { get; set; }
+        public SplitType SplitType { get; set; }
 
         /// <summary>
         /// hash最大值，只有hash分表才有值
