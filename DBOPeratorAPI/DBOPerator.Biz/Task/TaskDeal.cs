@@ -138,7 +138,7 @@ namespace DBOPerator.Biz.Task
         /// </summary>
         /// <param name="tables">表信息</param>
         /// <returns>结果</returns>
-        private SplitType GetSplitType(string currentTable, List<Table> tables)
+        private SplitType GetSplitType(string currentTable, List<Table> tables, ref string minTableProfix, ref string maxTableProfix)
         {
             var regMatch = Regex.Match(currentTable, "[0-9][0-9]*");
             if (regMatch.Success == false)
@@ -162,6 +162,10 @@ namespace DBOPerator.Biz.Task
             var oritable = Regex.Replace(currentTable, "[0-9][0-9]*", string.Empty);
             var sameTables = tables.FindAll(p => p.Table_Name.StartsWith(oritable));
             var list = this.GetAllValue(sameTables);
+            list.Sort();
+            minTableProfix = list[0].ToString();
+            maxTableProfix = list[list.Count - 1].ToString();
+
         }
 
         /// <summary>
