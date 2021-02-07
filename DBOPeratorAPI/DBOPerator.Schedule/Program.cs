@@ -6,7 +6,16 @@ namespace DBOPerator.Schedule
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(ConfigHelper.Random);
+            Console.WriteLine(ConfigHelper.Random2);
             Console.WriteLine("Hello World!");
+            Console.WriteLine(ConfigHelper.Random);
+            Console.WriteLine(ConfigHelper.Random2);
+            Console.WriteLine("Hello World!");
+            Console.WriteLine(ConfigHelper.Random);
+            Console.WriteLine(ConfigHelper.Random2);
         }
+
+        
     }
 }

@@ -9,7 +9,7 @@ namespace DBOPerator.Model
     /// <summary>
     /// 数据库链接model
     /// </summary>
-    public class ConStringModel
+    public class ConString
     {
         /// <summary>
         /// 主键

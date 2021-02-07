@@ -9,6 +9,51 @@
             1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
             </summary>
         </member>
+        <member name="T:DBOPerator.Model.ConString">
+            <summary>
+            数据库链接model
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.KeyID">
+            <summary>
+            主键
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.ConStringName">
+            <summary>
+            链接名字
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.ConnectionString">
+            <summary>
+            连接字符串
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.IsEnable">
+            <summary>
+            是否启用 true 启用
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.AddTime">
+            <summary>
+            添加时间
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.ModifyTime">
+            <summary>
+            修改时间
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.ConString.IsDelete">
+            <summary>
+            是否删除 true 删除  false未删除
+            </summary>
+        </member>
         <member name="T:DBOPerator.Model.ConStringCondition">
             <summary>
             连接名字
@@ -19,51 +64,6 @@
             连接名字
             </summary>
         </member>
-        <member name="T:DBOPerator.Model.ConStringModel">
-            <summary>
-            数据库链接model
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.KeyID">
-            <summary>
-            主键
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.ConStringName">
-            <summary>
-            链接名字
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.ConnectionString">
-            <summary>
-            连接字符串
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.IsEnable">
-            <summary>
-            是否启用 true 启用
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.AddTime">
-            <summary>
-            添加时间
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.ModifyTime">
-            <summary>
-            修改时间
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.ConStringModel.IsDelete">
-            <summary>
-            是否删除 true 删除  false未删除
-            </summary>
-        </member>
         <member name="P:DBOPerator.Model.Table.Table_Name">
             <summary>
             表名
@@ -72,6 +72,66 @@
         <member name="P:DBOPerator.Model.Table.Table_Comment">
             <summary>
             表备注
+            </summary>
+        </member>
+        <member name="T:DBOPerator.Model.DBTask">
+            <summary>
+            数据库任务
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.KeyID">
+            <summary>
+            任务主键
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.BusinessKeyID">
+            <summary>
+            业务主键
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.BusinessType">
+            <summary>
+            任务类型 1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.BusinessContent">
+            <summary>
+            业务语句，如果此处不为空，就执行此处的语句
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.ExecuteStatus">
+            <summary>
+            执行结果 1待执行 2执行中 3执行成功 4执行失败 
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.ExecuteMsg">
+            <summary>
+            执行结果为执行失败,此处不为空
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.ExecuteTimes">
+            <summary>
+            已执行次数，失败次数
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.Remark">
+            <summary>
+            备注
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.IsDelete">
+            <summary>
+            是否删除 true 已删除
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.AddTime">
+            <summary>
+            添加事件
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.ModifyTime">
+            <summary>
+            修改时间
             </summary>
         </member>
         <member name="P:DBOPerator.Model.DBTaskCondition.ExecuteStatus">
@@ -99,64 +159,34 @@
             业务语句，如果此处不为空，就执行此处的语句
             </summary>
         </member>
-        <member name="T:DBOPerator.Model.DBTaskModel">
+        <member name="T:DBOPerator.Model.SplitType">
             <summary>
-            数据库任务
+            拆分规则
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.KeyID">
+        <member name="F:DBOPerator.Model.SplitType.无">
             <summary>
-            任务主键
+            没有分表
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.BusinessKeyID">
+        <member name="F:DBOPerator.Model.SplitType.按年">
             <summary>
-            业务主键
+            按年分表
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.BusinessType">
+        <member name="F:DBOPerator.Model.SplitType.按月">
             <summary>
-            任务类型 1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
+            按月
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.BusinessContent">
+        <member name="F:DBOPerator.Model.SplitType.按天">
             <summary>
-            业务语句，如果此处不为空，就执行此处的语句
+            按天
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.ExecuteStatus">
+        <member name="F:DBOPerator.Model.SplitType.HASH">
             <summary>
-            执行结果 1待执行 2执行中 3执行成功 4执行失败 
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.ExecuteMsg">
-            <summary>
-            执行结果为执行失败,此处不为空
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.ExecuteTimes">
-            <summary>
-            已执行次数，失败次数
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.Remark">
-            <summary>
-            备注
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.IsDelete">
-            <summary>
-            是否删除 true 已删除
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.AddTime">
-            <summary>
-            添加事件
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.DBTaskModel.ModifyTime">
-            <summary>
-            修改时间
+            Hash
             </summary>
         </member>
         <member name="T:DBOPerator.Model.PagerParamIn`1">
@@ -222,82 +252,87 @@
             </summary>
             <typeparam name="T">泛型</typeparam>
         </member>
-        <member name="T:DBOPerator.Model.TableModel">
+        <member name="T:DBOPerator.Model.TableInfo">
             <summary>
             表信息
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.TabelKeyID">
+        <member name="P:DBOPerator.Model.TableInfo.TabelKeyID">
             <summary>
             表编号
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.ConStringKeyID">
+        <member name="P:DBOPerator.Model.TableInfo.ConStringKeyID">
             <summary>
             数据库连接编号
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.ConStringName">
+        <member name="P:DBOPerator.Model.TableInfo.DatabaseName">
             <summary>
-            数据库连接名字
+            数据库名字
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.TableDesc">
+        <member name="P:DBOPerator.Model.TableInfo.TableDesc">
             <summary>
             表描述
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.CreateStatus">
+        <member name="P:DBOPerator.Model.TableInfo.CreateStatus">
             <summary>
             下期创建情况 1无需创建 2 带创建 3已创建 4创建失败
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.ModifyStatus">
+        <member name="P:DBOPerator.Model.TableInfo.ModifyStatus">
             <summary>
             下期更新情况 1无需修改 2 待更新 3已更新 4创建失败
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.CheckStatus">
+        <member name="P:DBOPerator.Model.TableInfo.CheckStatus">
             <summary>
             表检查结果 1无需检测 2待检测 3已检测通过 4检测错误
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.SplitType">
+        <member name="P:DBOPerator.Model.TableInfo.SplitType">
             <summary>
-            分表方式 1 按年 2 按月 3按天 4按HASH
+            分表方式  1 无 2 按年 3 按月 4按天 5按HASH
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.HashCount">
+        <member name="P:DBOPerator.Model.TableInfo.HashCount">
             <summary>
             hash最大值，只有hash分表才有值
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.MinTableName">
+        <member name="P:DBOPerator.Model.TableInfo.TableName">
+            <summary>
+            表名
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableInfo.MinTableName">
             <summary>
             最小表名
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.MaxTableName">
+        <member name="P:DBOPerator.Model.TableInfo.MaxTableName">
             <summary>
             最大表名
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.IsEnable">
+        <member name="P:DBOPerator.Model.TableInfo.IsEnable">
             <summary>
             模板状态 1启用 2禁用
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.AddTime">
+        <member name="P:DBOPerator.Model.TableInfo.AddTime">
             <summary>
             添加时间
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.ModifyTime">
+        <member name="P:DBOPerator.Model.TableInfo.ModifyTime">
             <summary>
             修改时间
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TableModel.IsDelete">
+        <member name="P:DBOPerator.Model.TableInfo.IsDelete">
             <summary>
             是否删除
             </summary>
@@ -307,9 +342,9 @@
             表分页请求参数
             </summary>
         </member>
-        <member name="P:DBOPerator.Model.TablePagerCondition.ConStringName">
+        <member name="P:DBOPerator.Model.TablePagerCondition.DatabaseName">
             <summary>
-            数据库连接名字
+            数据库名字
             </summary>
         </member>
         <member name="P:DBOPerator.Model.TablePagerCondition.TableName">

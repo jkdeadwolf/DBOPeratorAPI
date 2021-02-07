@@ -16,7 +16,7 @@
             <param name="connectionString">connectionstring</param>
             <returns>添加结果</returns>
         </member>
-        <member name="M:DBOPeratorAPI.Controllers.DBController.UpdateConString(System.String,DBOPerator.Model.ConStringModel)">
+        <member name="M:DBOPeratorAPI.Controllers.DBController.UpdateConString(System.String,DBOPerator.Model.ConString)">
             <summary>
             修改链接
             </summary>
@@ -72,14 +72,14 @@
             </summary>
             <returns>结果</returns>
         </member>
-        <member name="M:DBOPeratorAPI.Controllers.DBController.AddTable(DBOPerator.Model.TableModel)">
+        <member name="M:DBOPeratorAPI.Controllers.DBController.AddTable(DBOPerator.Model.TableInfo)">
             <summary>
             新增模板表
             </summary>
             <param name="paramIn">入参</param>
             <returns>结果</returns>
         </member>
-        <member name="M:DBOPeratorAPI.Controllers.DBController.UpdateTableByKeyId(DBOPerator.Model.TableModel)">
+        <member name="M:DBOPeratorAPI.Controllers.DBController.UpdateTableByKeyId(DBOPerator.Model.TableInfo)">
             <summary>
             更新表信息
             </summary>
@@ -129,7 +129,7 @@
             <param name="sql">待执行的sql语句</param>
             <returns>执行结果</returns>
         </member>
-        <member name="M:DBOPeratorAPI.Controllers.DBController.AddDBTask(DBOPerator.Model.DBTaskModel)">
+        <member name="M:DBOPeratorAPI.Controllers.DBController.AddDBTask(DBOPerator.Model.DBTask)">
             <summary>
             添加db任务
             </summary>
@@ -157,6 +157,18 @@
             </summary>
             <param name="paramIn">入参</param>
             <returns>结果</returns>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.ExecuteTask(System.String)">
+            <summary>
+            执行task
+            </summary>
+            <param name="taskID">任务编号</param>
+        </member>
+        <member name="M:DBOPeratorAPI.Controllers.DBController.GetTasks(System.Int32)">
+            <summary>
+            执行task
+            </summary>
+            <param name="maxRunTimes">最大执行次数</param>
         </member>
     </members>
 </doc>

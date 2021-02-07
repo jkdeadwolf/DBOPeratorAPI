@@ -18,7 +18,7 @@ namespace DBOPerator.Biz
         public Result AddConString(string connectionString)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var data = new ConStringModel()
+            var data = new ConString()
             {
                 KeyID = KeyIDHelper.Generator(),
                 ConStringName = string.Empty,
@@ -27,7 +27,7 @@ namespace DBOPerator.Biz
                 IsEnable = true,
             };
 
-            int runRt = con.Insertable<ConStringModel>(data).ExecuteCommand();
+            int runRt = con.Insertable<ConString>(data).ExecuteCommand();
             return new Result() { Success = runRt > 0, Msg = "更新失败" };
         }
 
@@ -37,10 +37,10 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="keyID">链接对应主键</param>
         /// <returns>删除结果</returns>
-        public ConStringModel GetConString(string keyID)
+        public ConString GetConString(string keyID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            return con.Queryable<ConStringModel>().Where(p => p.KeyID == keyID).First();
+            return con.Queryable<ConString>().Where(p => p.KeyID == keyID).First();
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="keyID">链接对应逐渐</param>
         /// <returns>添加结果</returns>
-        public Result UpdateConString(string keyID, ConStringModel paramIn)
+        public Result UpdateConString(string keyID, ConString paramIn)
         {
             if (string.IsNullOrWhiteSpace(keyID))
             {
@@ -56,7 +56,7 @@ namespace DBOPerator.Biz
             }
 
             var con = ConnectionHelper.GetSqlSugarClient();
-            var count = con.Updateable<ConStringModel>(new ConStringModel() { ConStringName = paramIn.ConStringName, Remark = paramIn.Remark }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            var count = con.Updateable<ConString>(new ConString() { ConStringName = paramIn.ConStringName, Remark = paramIn.Remark }).Where(p => p.KeyID == keyID).ExecuteCommand();
             return new Result() { Success = count > 0 };
         }
 
@@ -68,7 +68,7 @@ namespace DBOPerator.Biz
         public Result DelConString(string keyID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var count = con.Updateable<ConStringModel>(new ConStringModel() { IsDelete = true }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            var count = con.Updateable<ConString>(new ConString() { IsDelete = true }).Where(p => p.KeyID == keyID).ExecuteCommand();
             return new Result() { Success = count > 0 };
         }
 
@@ -80,7 +80,7 @@ namespace DBOPerator.Biz
         public Result EnableConString(string keyID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var count = con.Updateable<ConStringModel>(new ConStringModel() { IsEnable = true }).ExecuteCommand();
+            var count = con.Updateable<ConString>(new ConString() { IsEnable = true }).ExecuteCommand();
             return new Result() { Success = count > 0 };
         }
 
@@ -92,7 +92,7 @@ namespace DBOPerator.Biz
         public Result DisableConString(string keyID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var count = con.Updateable<ConStringModel>(new ConStringModel() { IsEnable = false }).ExecuteCommand();
+            var count = con.Updateable<ConString>(new ConString() { IsEnable = false }).ExecuteCommand();
             return new Result() { Success = count > 0 };
         }
 
@@ -101,18 +101,18 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        public PagerParamOut<ConStringModel> PagerConString(PagerParamIn<ConStringCondition> paramIn)
+        public PagerParamOut<ConString> PagerConString(PagerParamIn<ConStringCondition> paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
             int totalCount = 0;
-            var where = con.Queryable<ConStringModel>();
+            var where = con.Queryable<ConString>();
             if (string.IsNullOrWhiteSpace(paramIn.Data.ConName) == false)
             {
                 where.Where(p => p.ConStringName.Contains(paramIn.Data.ConName));
             }
 
             var list = where.ToPageList(paramIn.PageNo, paramIn.PageSize, ref totalCount);
-            return new PagerParamOut<ConStringModel>() { Success = true, Rows = list };
+            return new PagerParamOut<ConString>() { Success = true, Rows = list };
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace DBOPerator.Biz
                 ////整库时间较久，下发任务,做异步执行
                 if (string.IsNullOrWhiteSpace(sql) == false)
                 {
-                    return new BTask().AddDBTask(new DBTaskModel()
+                    return new BTask().AddDBTask(new DBTask()
                     {
                         BusinessKeyID = keyID,
                         BusinessType = BusinessType.整库建表,
@@ -168,7 +168,7 @@ namespace DBOPerator.Biz
                 }
 
                 ////整库时间较久，下发任务
-                return new BTask().AddDBTask(new DBTaskModel()
+                return new BTask().AddDBTask(new DBTask()
                 {
                     BusinessKeyID = keyID,
                     BusinessType = BusinessType.整库表分析,

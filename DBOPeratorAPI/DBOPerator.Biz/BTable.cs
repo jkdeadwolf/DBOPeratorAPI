@@ -11,13 +11,13 @@ namespace DBOPerator.Biz
         /// 表设计分页
         /// </summary>
         /// <returns>结果</returns>
-        public PagerParamOut<TableModel> PagerTableModel(PagerParamIn<TablePagerCondition> paramIn)
+        public PagerParamOut<TableInfo> PagerTableModel(PagerParamIn<TablePagerCondition> paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var where = con.Queryable<TableModel>();
-            if (string.IsNullOrWhiteSpace(paramIn?.Data?.ConStringName) == false)
+            var where = con.Queryable<TableInfo>();
+            if (string.IsNullOrWhiteSpace(paramIn?.Data?.DatabaseName) == false)
             {
-                where.Where(p => p.ConStringName == paramIn.Data.ConStringName);
+                where.Where(p => p.DatabaseName == paramIn.Data.DatabaseName);
             }
 
             if (string.IsNullOrWhiteSpace(paramIn?.Data?.TableName) == false)
@@ -27,7 +27,7 @@ namespace DBOPerator.Biz
 
             int totalCount = 0;
             var list = where.ToPageList(paramIn.PageNo, paramIn.PageSize, ref totalCount);
-            return new PagerParamOut<TableModel> { Success = true, Rows = list };
+            return new PagerParamOut<TableInfo> { Success = true, Rows = list };
         }
 
         /// <summary>
@@ -35,11 +35,11 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        public Result AddTable(TableModel paramIn)
+        public Result AddTable(TableInfo paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
             paramIn.TabelKeyID = KeyIDHelper.Generator();
-            var rt = con.Insertable<TableModel>(paramIn).ExecuteCommand();
+            var rt = con.Insertable<TableInfo>(paramIn).ExecuteCommand();
             return new Result { Success = rt > 0 };
         }
 
@@ -48,11 +48,11 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        public Result AddTableBatch(List<TableModel> list)
+        public Result AddTableBatch(List<TableInfo> list)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
             list.ForEach(p => p.TabelKeyID = KeyIDHelper.Generator());
-            var rt = con.Insertable<TableModel>(list).ExecuteCommand();
+            var rt = con.Insertable<TableInfo>(list).ExecuteCommand();
             return new Result { Success = rt == list.Count };
         }
 
@@ -61,10 +61,10 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        public Result UpdateTableByKeyId(TableModel paramIn)
+        public Result UpdateTableByKeyId(TableInfo paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var rt = con.Updateable<TableModel>(paramIn).ExecuteCommand();
+            var rt = con.Updateable<TableInfo>(paramIn).ExecuteCommand();
             return new Result { Success = rt > 0 };
         }
 
@@ -73,11 +73,11 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="keyid">主键</param>
         /// <returns>结果</returns>
-        public Result<TableModel> GetTableByKeyId(string keyid)
+        public Result<TableInfo> GetTableByKeyId(string keyid)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var data = con.Queryable<TableModel>().Where(p => p.TabelKeyID == keyid).First();
-            return new Result<TableModel>() { Data = data, Success = true };
+            var data = con.Queryable<TableInfo>().Where(p => p.TabelKeyID == keyid).First();
+            return new Result<TableInfo>() { Data = data, Success = true };
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace DBOPerator.Biz
         public Result EnableTableByKeyId(string keyid)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var runRt = con.Updateable<TableModel>(new TableModel() { IsEnable = 1 }).Where(p => p.TabelKeyID == keyid).ExecuteCommand();
-            return new Result<TableModel>() { Success = runRt > 0 };
+            var runRt = con.Updateable<TableInfo>(new TableInfo() { IsEnable = 1 }).Where(p => p.TabelKeyID == keyid).ExecuteCommand();
+            return new Result<Table>() { Success = runRt > 0 };
         }
 
         /// <summary>
@@ -100,8 +100,8 @@ namespace DBOPerator.Biz
         public Result DisableTableByKeyId(string keyid)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var runRt = con.Updateable<TableModel>(new TableModel() { IsEnable = 0 }).Where(p => p.TabelKeyID == keyid).ExecuteCommand();
-            return new Result<TableModel>() { Success = runRt > 0 };
+            var runRt = con.Updateable<TableInfo>(new TableInfo() { IsEnable = 0 }).Where(p => p.TabelKeyID == keyid).ExecuteCommand();
+            return new Result<TableInfo>() { Success = runRt > 0 };
         }
 
         /// <summary>
@@ -109,11 +109,11 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="keyid">主键</param>
         /// <returns>结果</returns>
-        public Result<TableModel> DelTableByKeyId(string keyid)
+        public Result<TableInfo> DelTableByKeyId(string keyid)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var runRt = con.Updateable<TableModel>(new TableModel() { IsDelete = true }).Where(p => p.TabelKeyID == keyid).ExecuteCommand();
-            return new Result<TableModel>() { Success = runRt > 0 };
+            var runRt = con.Updateable<TableInfo>(new TableInfo() { IsDelete = true }).Where(p => p.TabelKeyID == keyid).ExecuteCommand();
+            return new Result<TableInfo>() { Success = runRt > 0 };
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace DBOPerator.Biz
         public Result GetTemplateSqlCreate(string keyid)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var tableInfo = con.Queryable<TableModel>().Where(p => p.TabelKeyID == keyid).First();
+            var tableInfo = con.Queryable<TableInfo>().Where(p => p.TabelKeyID == keyid).First();
             if (string.IsNullOrWhiteSpace(tableInfo?.TabelKeyID))
             {
                 return new Result() { Msg = "表信息获取失败" };
@@ -139,7 +139,7 @@ namespace DBOPerator.Biz
             var conCon = ConnectionHelper.GetSqlSugarClientByConString(conInfo.ConnectionString);
             string sql = $"show create table {tableInfo.MaxTableName};";
             var res = conCon.Queryable<dynamic>(sql).First();
-            return new Result<TableModel>() { Success = true, Msg = res.CreateTable };
+            return new Result<Table>() { Success = true, Msg = res.CreateTable };
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace DBOPerator.Biz
             {
                 if (string.IsNullOrWhiteSpace(sql))
                 {
-                    return new BTask().AddDBTask(new DBTaskModel()
+                    return new BTask().AddDBTask(new DBTask()
                     {
                         BusinessKeyID = tableKeyID,
                         BusinessType = BusinessType.表建表,

@@ -10,3 +10,6 @@
 /DBOPeratorAPI/DBOPerator.Schedule/obj
 /DBOPeratorAPI/DBOPeratorAPI/bin/Debug/netcoreapp3.1
 /DBOPeratorAPI/DBOPeratorAPI/obj
+/DBOPeratorAPI/DBOPerator.BizTests/bin/Debug/netcoreapp3.1
+/DBOPeratorAPI/DBOPerator.BizTests/obj
+/DBOPeratorAPI/DBOPerator.Schedule/bin/Debug/netcoreapp3.1

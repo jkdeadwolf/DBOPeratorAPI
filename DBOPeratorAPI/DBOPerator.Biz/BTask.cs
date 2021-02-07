@@ -13,11 +13,11 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        public Result AddDBTask(DBTaskModel paramIn)
+        public Result AddDBTask(DBTask paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
             paramIn.KeyID = KeyIDHelper.Generator();
-            var rt = con.Insertable<DBTaskModel>(paramIn).ExecuteCommand();
+            var rt = con.Insertable<DBTask>(paramIn).ExecuteCommand();
             return new Result() { Success = rt > 0 };
         }
 
@@ -29,7 +29,7 @@ namespace DBOPerator.Biz
         public Result DelDBTask(string keyID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var rt = con.Updateable<DBTaskModel>(new DBTaskModel() { IsDelete = true }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            var rt = con.Updateable<DBTask>(new DBTask() { IsDelete = true }).Where(p => p.KeyID == keyID).ExecuteCommand();
             return new Result() { Success = rt > 0 };
         }
 
@@ -38,10 +38,10 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="keyID">任务id</param>
         /// <returns>结果</returns>
-        public DBTaskModel GetTaskByID(string keyID)
+        public DBTask GetTaskByID(string keyID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            return con.Queryable<DBTaskModel>().Where(p => p.KeyID == keyID).First();
+            return con.Queryable<DBTask>().Where(p => p.KeyID == keyID).First();
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace DBOPerator.Biz
         public Result CompleteDBTask(string keyID, string message)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var rt = con.Updateable<DBTaskModel>(new DBTaskModel() { ExecuteStatus = 3, ExecuteMsg = message }).Where(p => p.KeyID == keyID).ExecuteCommand();
+            var rt = con.Updateable<DBTask>(new DBTask() { ExecuteStatus = 3, ExecuteMsg = message }).Where(p => p.KeyID == keyID).ExecuteCommand();
             return new Result() { Success = rt > 0 };
         }
 
@@ -62,10 +62,10 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="paramIn">入参</param>
         /// <returns>结果</returns>
-        public PagerParamOut<DBTaskModel> PagerDBTask(PagerParamIn<DBTaskCondition> paramIn)
+        public PagerParamOut<DBTask> PagerDBTask(PagerParamIn<DBTaskCondition> paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            var where = con.Queryable<DBTaskModel>();
+            var where = con.Queryable<DBTask>();
             if (string.IsNullOrWhiteSpace(paramIn?.Data?.BusinessContent) == false)
             {
                 where.Where(p => p.BusinessContent.Contains(paramIn.Data.BusinessContent));
@@ -94,7 +94,7 @@ namespace DBOPerator.Biz
             int totalCount = 0;
             var data = where.ToPageList(paramIn.PageNo, paramIn.PageSize, ref totalCount);
 
-            return new PagerParamOut<DBTaskModel>() { Success = true, Rows = data, PageSize = paramIn.PageSize, PageNo = paramIn.PageNo, Total = totalCount };
+            return new PagerParamOut<DBTask>() { Success = true, Rows = data, PageSize = paramIn.PageSize, PageNo = paramIn.PageNo, Total = totalCount };
         }
 
         /// <summary>
@@ -102,10 +102,18 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="model">入参</param>
         /// <returns>结果</returns>
-        public bool UpdateTask(DBTaskModel model)
+        public bool UpdateTask(DBTask model)
         {
-            var con = ConnectionHelper.GetSqlSugarClient();
-            return con.Updateable<DBTaskModel>(model).ExecuteCommand() > 0;
+            try
+            {
+                var con = ConnectionHelper.GetSqlSugarClient();
+                return con.Updateable<DBTask>(model).ExecuteCommand() > 0;
+            }
+            catch (Exception e)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Error(e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -116,7 +124,7 @@ namespace DBOPerator.Biz
         public bool StartTask(string taskID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            return con.Updateable<DBTaskModel>(new DBTaskModel() { ExecuteStatus = 2 }).Where(p => p.KeyID == taskID && p.ExecuteStatus == 1).ExecuteCommand() > 0;
+            return con.Updateable<DBTask>().SetColumns(p => new DBTask() { ExecuteStatus = 2 }).Where(p => p.KeyID == taskID && p.ExecuteStatus == 1).ExecuteCommand() > 0;
         }
 
         /// <summary>
@@ -129,7 +137,7 @@ namespace DBOPerator.Biz
             try
             {
                 var con = ConnectionHelper.GetSqlSugarClient();
-                return con.Updateable<DBTaskModel>().ReSetValue(p => p.ExecuteTimes == p.ExecuteTimes + 1).Where(p => p.KeyID == taskID && p.ExecuteStatus == 1).ExecuteCommand() > 0;
+                return con.Updateable<DBTask>().UpdateColumns(p => new { p.ExecuteTimes }).ReSetValue(p => p.ExecuteTimes == p.ExecuteTimes + 1).Where(p => p.KeyID == taskID).ExecuteCommand() > 0;
             }
             catch (Exception e)
             {
@@ -144,9 +152,11 @@ namespace DBOPerator.Biz
         /// <param name="taskID">任务编号</param>
         public void ExecuteTask(string taskID)
         {
+            Result result = null;
+            DBTask taskInfo = null;
             try
             {
-                var taskInfo = this.GetTaskByID(taskID);
+                taskInfo = this.GetTaskByID(taskID);
                 if (string.IsNullOrWhiteSpace(taskInfo?.KeyID))
                 {
                     throw new Exception($"任务编号：{taskID}获取任务失败");
@@ -158,7 +168,7 @@ namespace DBOPerator.Biz
                 }
 
                 ITaskDeal deal = new TaskDeal(taskInfo);
-                Result result = null;
+
                 switch (taskInfo.BusinessType)
                 {
                     case BusinessType.整库建表: result = deal.ExecuteConCreateTables(); break;
@@ -167,16 +177,16 @@ namespace DBOPerator.Biz
                     case BusinessType.表分析: result = deal.ExecuteTableAnalysisTables(); break;
                     default: result = new Result() { Msg = "未定义的处理方式" }; break;
                 }
-
-                this.BuildTaskResult(taskInfo, result);
-                this.UpdateTask(taskInfo);
             }
             catch (Exception e)
             {
+                result = new Result() { Msg = e.Message };
                 NLog.LogManager.GetCurrentClassLogger().Error($"执行任务出错：{e}");
             }
             finally
             {
+                this.BuildTaskResult(taskInfo, result);
+                this.UpdateTask(taskInfo);
                 ////每次执行都要增加任务执行次数
                 this.AddTaskRunTimes(taskID);
             }
@@ -187,24 +197,31 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="model">任务model</param>
         /// <param name="result">结果</param>
-        private void BuildTaskResult(DBTaskModel model, Result result)
+        private void BuildTaskResult(DBTask model, Result result)
         {
-            model.ExecuteStatus = result.Success ? 3 : 4;
-            model.ExecuteMsg = result.Success ? string.Empty : result.Msg;
-            model.ModifyTime = DateTime.Now;
+            try
+            {
+                model.ExecuteStatus = result.Success ? 3 : 4;
+                model.ExecuteMsg = result.Success ? string.Empty : result.Msg;
+                model.ModifyTime = DateTime.Now;
+            }
+            catch (Exception e)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Error(e);
+            }
         }
 
         /// <summary>
         /// 获取最大执行次数
         /// </summary>
         /// <param name="maxRunTimes">最大执行次数</param>
-        public Result<List<DBTaskModel>> GetTasks(int maxRunTimes)
+        public Result<List<DBTask>> GetTasks(int maxRunTimes)
         {
-            Result<List<DBTaskModel>> result = new Result<List<DBTaskModel>>();
+            Result<List<DBTask>> result = new Result<List<DBTask>>();
             try
             {
                 var con = ConnectionHelper.GetSqlSugarClient();
-                var list = con.Queryable<DBTaskModel>().Where(p => p.ExecuteTimes < maxRunTimes).ToList();
+                var list = con.Queryable<DBTask>().Where(p => p.ExecuteTimes < maxRunTimes).ToList();
                 result.Data = list;
                 result.Success = true;
             }

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOPerator.API", "DBOPeratorAPI\DBOPerator.API.csproj", "{E5A9A580-BA47-4EF3-8E69-831B81D353DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBOPerator.API", "DBOPeratorAPI\DBOPerator.API.csproj", "{E5A9A580-BA47-4EF3-8E69-831B81D353DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOPerator.Biz", "DBOPerator.Biz\DBOPerator.Biz.csproj", "{F55768AE-F73C-4B2E-B177-778836484653}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBOPerator.Biz", "DBOPerator.Biz\DBOPerator.Biz.csproj", "{F55768AE-F73C-4B2E-B177-778836484653}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOPerator.Model", "DBOPerator.Model\DBOPerator.Model.csproj", "{EBE214E9-EB4E-4804-A395-A378553A7820}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBOPerator.Model", "DBOPerator.Model\DBOPerator.Model.csproj", "{EBE214E9-EB4E-4804-A395-A378553A7820}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOPerator.Schedule", "DBOPerator.Schedule\DBOPerator.Schedule.csproj", "{9E7BF829-B1E7-48B0-B8CF-5B4F613C88A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBOPerator.Schedule", "DBOPerator.Schedule\DBOPerator.Schedule.csproj", "{9E7BF829-B1E7-48B0-B8CF-5B4F613C88A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBOPerator.BizTests", "DBOPerator.BizTests\DBOPerator.BizTests.csproj", "{98C3F274-70C1-4C74-8F98-D716EE4BDB9B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9E7BF829-B1E7-48B0-B8CF-5B4F613C88A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E7BF829-B1E7-48B0-B8CF-5B4F613C88A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E7BF829-B1E7-48B0-B8CF-5B4F613C88A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98C3F274-70C1-4C74-8F98-D716EE4BDB9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98C3F274-70C1-4C74-8F98-D716EE4BDB9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98C3F274-70C1-4C74-8F98-D716EE4BDB9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98C3F274-70C1-4C74-8F98-D716EE4BDB9B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

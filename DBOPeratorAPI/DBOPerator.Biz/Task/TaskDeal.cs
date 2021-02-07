@@ -16,13 +16,13 @@ namespace DBOPerator.Biz.Task
         /// <summary>
         /// 任务信息
         /// </summary>
-        private DBTaskModel TaskInfo { get; set; }
+        private DBTask TaskInfo { get; set; }
 
         /// <summary>
         /// 构造方法
         /// </summary>
         /// <param name="task">任务</param>
-        public TaskDeal(DBTaskModel task)
+        public TaskDeal(DBTask task)
         {
             this.TaskInfo = task;
         }
@@ -107,30 +107,33 @@ namespace DBOPerator.Biz.Task
         /// <param name="tables">表信息</param>
         /// <param name="conInfo">链接信息</param>
         /// <returns>结果</returns>
-        private List<TableModel> BuildTableModel(Dictionary<string, List<Table>> tables, ConStringModel conInfo)
+        private List<TableInfo> BuildTableModel(Dictionary<string, List<Table>> tables, ConString conInfo)
         {
+            List<TableInfo> result = new List<TableInfo>();
             foreach (var item in tables.Keys)
             {
                 foreach (var table in tables[item])
                 {
-                    TableModel model = new TableModel();
-                    model.AddTime = DateTime.Now;
-                    model.SplitType =,
-                model.CheckStatus =
-                    model.ConStringKeyID = conInfo.ConnectionString;
-                    model.DatabaseName = conInfo.ConStringName;
-                    model.CreateStatus =
-                        model.HashCount =
+                    if (result.Exists(p => table.Table_Name.StartsWith(p.TableName) && string.IsNullOrWhiteSpace(p.TableName) == false) == false)
+                    {
+                        TableInfo model = new TableInfo();
+                        model.AddTime = DateTime.Now;
+                        this.InitSplitType(table.Table_Name, tables[item], model);
+                        model.CheckStatus = 2;
+                        model.ConStringKeyID = conInfo.KeyID;
+                        model.DatabaseName = item;
+                        model.CreateStatus = 2;
                         model.IsDelete = false;
-                    model.IsEnable = 1;
-                    model.MaxTableName =
-                        model.MinTableName =
+                        model.IsEnable = 1;
                         model.ModifyStatus = 1;
-                    model.ModifyTime = DateTime.Now;
-
-                    model.TableDesc = table.Table_Comment;
+                        model.ModifyTime = DateTime.Now;
+                        model.TableDesc = table.Table_Comment;
+                        result.Add(model);
+                    }
                 }
             }
+
+            return result;
         }
 
         /// <summary>
@@ -138,34 +141,66 @@ namespace DBOPerator.Biz.Task
         /// </summary>
         /// <param name="tables">表信息</param>
         /// <returns>结果</returns>
-        private SplitType GetSplitType(string currentTable, List<Table> tables, ref string minTableProfix, ref string maxTableProfix)
+        private void InitSplitType(string currentTable, List<Table> tables, TableInfo table)
         {
-            var regMatch = Regex.Match(currentTable, "[0-9][0-9]*");
-            if (regMatch.Success == false)
+            string tableName = string.Empty;
+            string minProfix = string.Empty;
+            string maxProfix = string.Empty;
+            int hashCount = 0;
+            SplitType splitType = SplitType.无;
+            try
             {
-                return SplitType.无;
-            }
+                var regMatch = Regex.Match(currentTable, "[0-9][0-9]*");
+                if (regMatch.Success == false)
+                {
+                    splitType = SplitType.无;
+                    return;
+                }
 
-            DateTime time = DateTime.MinValue;
-            ////year>2017区分按小时分表的逻辑 yyMMddHH的场景
-            if (DateTime.TryParseExact(regMatch.Value, "yyyyMM", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time) && time.Year > 2017)
+                ////去掉数字，看看他的原型是什么
+                tableName = Regex.Replace(currentTable, "[0-9][0-9]*", string.Empty);
+                var sameTables = tables.FindAll(p => p.Table_Name.StartsWith(tableName));
+                var list = this.GetAllValue(sameTables);
+                list.Sort();
+                minProfix = list[0].ToString();
+                maxProfix = list[list.Count - 1].ToString();
+
+                DateTime time = DateTime.MinValue;
+                ////year>2017区分按小时分表的逻辑 yyMMddHH的场景
+                if (DateTime.TryParseExact(regMatch.Value, "yyyyMM", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time) && time.Year > 2017)
+                {
+                    splitType = SplitType.按月;
+                    return;
+                }
+
+                if (DateTime.TryParseExact(regMatch.Value, "yyMM", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time))
+                {
+                    splitType = SplitType.按月;
+                    return;
+                }
+
+                if (DateTime.TryParseExact(regMatch.Value, "yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time))
+                {
+                    splitType = SplitType.按年;
+                    return;
+                }
+
+                ////最小表后缀是0
+                if (list[0] == 0)
+                {
+                    hashCount = list.Count;
+                    splitType = SplitType.HASH;
+                    return;
+                }
+            }
+            finally
             {
-                return SplitType.按月;
+                table.HashCount = hashCount;
+                table.MaxTableName = $"{tableName}{maxProfix}";
+                table.MinTableName = $"{tableName}{minProfix}";
+                table.SplitType = splitType;
+                table.TableName = $"{tableName}";
             }
-
-            if (DateTime.TryParseExact(regMatch.Value, "yyMM", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time))
-            {
-                return SplitType.按月;
-            }
-
-            ////去掉数字，看看他的原型是什么
-            var oritable = Regex.Replace(currentTable, "[0-9][0-9]*", string.Empty);
-            var sameTables = tables.FindAll(p => p.Table_Name.StartsWith(oritable));
-            var list = this.GetAllValue(sameTables);
-            list.Sort();
-            minTableProfix = list[0].ToString();
-            maxTableProfix = list[list.Count - 1].ToString();
-
         }
 
         /// <summary>

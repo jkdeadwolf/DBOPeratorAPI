@@ -8,7 +8,7 @@ namespace DBOPerator.Model
     /// <summary>
     /// 数据库任务
     /// </summary>
-    public class DBTaskModel
+    public class DBTask
     {
         /// <summary>
         /// 任务主键
@@ -29,7 +29,7 @@ namespace DBOPerator.Model
         /// <summary>
         /// 业务语句，如果此处不为空，就执行此处的语句
         /// </summary>
-        public string BusinessContent { get; set; }
+        public string BusinessContent { get; set; } = string.Empty;
 
         /// <summary>
         /// 执行结果 1待执行 2执行中 3执行成功 4执行失败 

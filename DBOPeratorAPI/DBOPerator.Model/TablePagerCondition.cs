@@ -10,9 +10,9 @@ namespace DBOPerator.Model
     public class TablePagerCondition
     {
         /// <summary>
-        /// 数据库连接名字
+        /// 数据库名字
         /// </summary>
-        public string ConStringName { get; set; }
+        public string DatabaseName { get; set; }
 
         /// <summary>
         /// 表名

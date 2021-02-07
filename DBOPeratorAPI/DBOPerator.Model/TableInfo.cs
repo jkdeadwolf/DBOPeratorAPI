@@ -9,7 +9,7 @@ namespace DBOPerator.Model
     /// <summary>
     /// 表信息
     /// </summary>
-    public class TableModel
+    public class TableInfo
     {
         /// <summary>
         /// 表编号
@@ -56,6 +56,11 @@ namespace DBOPerator.Model
         /// hash最大值，只有hash分表才有值
         /// </summary>
         public int HashCount { get; set; }
+
+        /// <summary>
+        /// 表名
+        /// </summary>
+        public string TableName { get; set; }
 
         /// <summary>
         /// 最小表名
