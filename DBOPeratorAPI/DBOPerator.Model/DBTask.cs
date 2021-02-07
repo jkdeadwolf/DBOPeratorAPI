@@ -52,6 +52,11 @@ namespace DBOPerator.Model
         public string Remark { get; set; } = string.Empty;
 
         /// <summary>
+        /// 下次执行时间，当前时间小于下次执行时间，就执行
+        /// </summary>
+        public DateTime NextExecuteTime { get; set; } = DateTime.MinValue;
+
+        /// <summary>
         /// 是否删除 true 已删除
         /// </summary>
         public bool IsDelete { get; set; }

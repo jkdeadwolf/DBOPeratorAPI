@@ -28,6 +28,26 @@ namespace DBOPerator.Biz
             };
 
             int runRt = con.Insertable<ConString>(data).ExecuteCommand();
+            if (runRt > 0)
+            {
+                System.Threading.Tasks.Task.Run(() =>
+                {
+                    try
+                    {
+                        new BTask().AddDBTask(new DBTask()
+                        {
+                            BusinessKeyID = data.KeyID,
+                            BusinessType = BusinessType.整库建表,
+                            NextExecuteTime = DateTime.Now
+                        });
+                    }
+                    catch (Exception e)
+                    {
+                        NLog.LogManager.GetCurrentClassLogger().Error(e);
+                    }
+                });
+            }
+
             return new Result() { Success = runRt > 0, Msg = "更新失败" };
         }
 

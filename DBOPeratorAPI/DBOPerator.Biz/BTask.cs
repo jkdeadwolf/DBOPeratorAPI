@@ -221,7 +221,7 @@ namespace DBOPerator.Biz
             try
             {
                 var con = ConnectionHelper.GetSqlSugarClient();
-                var list = con.Queryable<DBTask>().Where(p => p.ExecuteTimes < maxRunTimes).ToList();
+                var list = con.Queryable<DBTask>().Where(p => p.ExecuteTimes < maxRunTimes && p.NextExecuteTime < DateTime.Now).ToList();
                 result.Data = list;
                 result.Success = true;
             }

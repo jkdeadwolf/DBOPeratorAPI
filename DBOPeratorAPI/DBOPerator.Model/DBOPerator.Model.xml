@@ -119,6 +119,11 @@
             备注
             </summary>
         </member>
+        <member name="P:DBOPerator.Model.DBTask.NextExecuteTime">
+            <summary>
+            下次执行时间，当前时间小于下次执行时间，就执行
+            </summary>
+        </member>
         <member name="P:DBOPerator.Model.DBTask.IsDelete">
             <summary>
             是否删除 true 已删除
