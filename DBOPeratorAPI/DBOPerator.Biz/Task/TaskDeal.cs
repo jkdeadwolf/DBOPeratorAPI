@@ -114,7 +114,7 @@ namespace DBOPerator.Biz.Task
         /// <returns>结果</returns>
         private List<TableInfo> BuildTableModel(Dictionary<string, List<Table>> tables, ConString conInfo)
         {
-            List<string> selfDatabases = new List<string>() { "information_schema", "mysql", "performance_schema", "test" };
+            List<string> selfDatabases = new List<string>() { "information_schema", "mysql", "performance_schema", "test", "sys" };
             List<TableInfo> result = new List<TableInfo>();
             foreach (var item in tables.Keys)
             {
@@ -147,8 +147,9 @@ namespace DBOPerator.Biz.Task
         /// <summary>
         /// 获取拆分规则
         /// </summary>
-        /// <param name="tables">表信息</param>
-        /// <returns>结果</returns>
+        /// <param name="currentTable">当前表</param>
+        /// <param name="tables">所有表</param>
+        /// <param name="table">表信息</param>
         private void InitSplitType(string currentTable, List<Table> tables, TableInfo table)
         {
             string tableName = currentTable;
