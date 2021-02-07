@@ -38,7 +38,6 @@ namespace DBOPerator.Biz
         public Result AddTable(TableInfo paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            paramIn.TabelKeyID = KeyIDHelper.Generator();
             var rt = con.Insertable<TableInfo>(paramIn).ExecuteCommand();
             return new Result { Success = rt > 0 };
         }
@@ -51,9 +50,8 @@ namespace DBOPerator.Biz
         public Result AddTableBatch(List<TableInfo> list)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            list.ForEach(p => p.TabelKeyID = KeyIDHelper.Generator());
-            var rt = con.Insertable<TableInfo>(list).ExecuteCommand();
-            return new Result { Success = rt == list.Count };
+            var rt = con.Saveable<TableInfo>(list).ExecuteCommand();
+            return new Result { Success = rt > 0 };
         }
 
         /// <summary>

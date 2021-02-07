@@ -164,22 +164,22 @@
             拆分规则
             </summary>
         </member>
-        <member name="F:DBOPerator.Model.SplitType.无">
+        <member name="F:DBOPerator.Model.SplitType.None">
             <summary>
             没有分表
             </summary>
         </member>
-        <member name="F:DBOPerator.Model.SplitType.按年">
+        <member name="F:DBOPerator.Model.SplitType.Year">
             <summary>
             按年分表
             </summary>
         </member>
-        <member name="F:DBOPerator.Model.SplitType.按月">
+        <member name="F:DBOPerator.Model.SplitType.Month">
             <summary>
             按月
             </summary>
         </member>
-        <member name="F:DBOPerator.Model.SplitType.按天">
+        <member name="F:DBOPerator.Model.SplitType.Day">
             <summary>
             按天
             </summary>
@@ -275,21 +275,6 @@
         <member name="P:DBOPerator.Model.TableInfo.TableDesc">
             <summary>
             表描述
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.TableInfo.CreateStatus">
-            <summary>
-            下期创建情况 1无需创建 2 带创建 3已创建 4创建失败
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.TableInfo.ModifyStatus">
-            <summary>
-            下期更新情况 1无需修改 2 待更新 3已更新 4创建失败
-            </summary>
-        </member>
-        <member name="P:DBOPerator.Model.TableInfo.CheckStatus">
-            <summary>
-            表检查结果 1无需检测 2待检测 3已检测通过 4检测错误
             </summary>
         </member>
         <member name="P:DBOPerator.Model.TableInfo.SplitType">

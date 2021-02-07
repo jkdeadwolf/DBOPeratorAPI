@@ -124,7 +124,7 @@ namespace DBOPerator.Biz
         public bool StartTask(string taskID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            return con.Updateable<DBTask>().SetColumns(p => new DBTask() { ExecuteStatus = 2 }).Where(p => p.KeyID == taskID && p.ExecuteStatus == 1).ExecuteCommand() > 0;
+            return con.Updateable<DBTask>().SetColumns(p => new DBTask() { ExecuteStatus = 2, ExecuteMsg = string.Empty }).Where(p => p.KeyID == taskID && p.ExecuteStatus == 1).ExecuteCommand() > 0;
         }
 
         /// <summary>

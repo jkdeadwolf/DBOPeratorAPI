@@ -15,7 +15,7 @@ namespace DBOPerator.Model
         /// 表编号
         /// </summary>
         [SugarColumn(IsPrimaryKey = true)]
-        public string TabelKeyID { get; set; }
+        public string TabelKeyID { get { return $"{DatabaseName}-{TableName}-{SplitType.ToString()}"; } }
 
         /// <summary>
         /// 数据库连接编号
@@ -31,21 +31,6 @@ namespace DBOPerator.Model
         /// 表描述
         /// </summary>
         public string TableDesc { get; set; }
-
-        /// <summary>
-        /// 下期创建情况 1无需创建 2 带创建 3已创建 4创建失败
-        /// </summary>
-        public int CreateStatus { get; set; }
-
-        /// <summary>
-        /// 下期更新情况 1无需修改 2 待更新 3已更新 4创建失败
-        /// </summary>
-        public int ModifyStatus { get; set; }
-
-        /// <summary>
-        /// 表检查结果 1无需检测 2待检测 3已检测通过 4检测错误
-        /// </summary>
-        public int CheckStatus { get; set; }
 
         /// <summary>
         /// 分表方式  1 无 2 按年 3 按月 4按天 5按HASH

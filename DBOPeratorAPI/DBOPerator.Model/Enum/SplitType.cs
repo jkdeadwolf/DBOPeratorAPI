@@ -12,22 +12,22 @@ namespace DBOPerator.Model
         /// <summary>
         /// 没有分表
         /// </summary>
-        无 = 1,
+        None = 1,
 
         /// <summary>
         /// 按年分表
         /// </summary>
-        按年 = 2,
+        Year = 2,
 
         /// <summary>
         /// 按月
         /// </summary>
-        按月 = 3,
+        Month = 3,
 
         /// <summary>
         /// 按天
         /// </summary>
-        按天 = 4,
+        Day = 4,
 
         /// <summary>
         /// Hash
