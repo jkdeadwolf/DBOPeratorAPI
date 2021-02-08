@@ -18,7 +18,7 @@ namespace DBOPerator.Biz.Tests
                 var task = new DBTask()
                 {
                     BusinessKeyID = "202102071129559905157225",
-                    BusinessType = BusinessType.整库建表,
+                    BusinessType = BusinessType.表建表,
 
                 };
                 var res = new BTask().AddDBTask(task);

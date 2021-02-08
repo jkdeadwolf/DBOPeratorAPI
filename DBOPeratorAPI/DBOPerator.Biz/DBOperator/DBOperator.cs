@@ -41,10 +41,23 @@ namespace DBOPerator.Biz
         /// <param name="tableName">表名字</param>
         /// <param name="client">客户端</param>
         /// <returns>结果</returns>
-        public dynamic GetTableDDL(string tableName, SqlSugarClient client)
+        public string GetTableDDL(string databaseName, string tableName, SqlSugarClient client)
         {
-            string sql = $"show create table {tableName};";
-            return client.Ado.SqlQuerySingle<dynamic>(sql);
+            string sql = $"show create table {databaseName}.{tableName};";
+            var table = client.Ado.SqlQuerySingle<DDL>(sql);
+            return table?.CreateTable;
+        }
+
+        /// <summary>
+        /// 执行sql语句
+        /// </summary>
+        /// <param name="sql">sql</param>
+        /// <param name="client">客户端</param>
+        /// <returns>结果</returns>
+        public bool ExecuteSql(string sql, SqlSugarClient client)
+        {
+            client.Ado.ExecuteCommand(sql);
+            return true;
         }
     }
 }

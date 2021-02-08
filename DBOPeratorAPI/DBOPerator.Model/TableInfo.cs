@@ -58,6 +58,11 @@ namespace DBOPerator.Model
         public string MaxTableName { get; set; }
 
         /// <summary>
+        /// 建表格式
+        /// </summary>
+        public string Format { get; set; }
+
+        /// <summary>
         /// 模板状态 1启用 2禁用
         /// </summary>
         public int IsEnable { get; set; }

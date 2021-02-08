@@ -64,6 +64,16 @@
             连接名字
             </summary>
         </member>
+        <member name="P:DBOPerator.Model.DDL.Table">
+            <summary>
+            表名字
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DDL.CreateTable">
+            <summary>
+            ddl
+            </summary>
+        </member>
         <member name="P:DBOPerator.Model.Table.Table_Name">
             <summary>
             表名
@@ -305,6 +315,11 @@
         <member name="P:DBOPerator.Model.TableInfo.MaxTableName">
             <summary>
             最大表名
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.TableInfo.Format">
+            <summary>
+            建表格式
             </summary>
         </member>
         <member name="P:DBOPerator.Model.TableInfo.IsEnable">

@@ -32,6 +32,14 @@ namespace DBOPerator.Biz
         /// <param name="tableName">数据库名字</param>
         /// <param name="client">客户端</param>
         /// <returns>结果</returns>
-        dynamic GetTableDDL(string tableName, SqlSugarClient client);
+        string GetTableDDL(string databaseName, string tableName, SqlSugarClient client);
+
+        /// <summary>
+        /// 执行sql，主要是检表语句这些
+        /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="client">链接</param>
+        /// <returns>结果</returns>
+        bool ExecuteSql(string sql, SqlSugarClient client);
     }
 }

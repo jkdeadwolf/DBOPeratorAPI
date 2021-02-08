@@ -103,7 +103,59 @@ namespace DBOPerator.Biz.Task
 
         public Result ExecuteTableCreateTables()
         {
-            throw new NotImplementedException();
+            Result result = new Result();
+            try
+            {
+                var tableInfo = new BTable().GetTableByKeyId(this.TaskInfo.BusinessKeyID);
+                if (tableInfo?.Success == false || tableInfo.Data == null || string.IsNullOrWhiteSpace(tableInfo?.Data?.TabelKeyID))
+                {
+                    result.Msg = "获取表信息失败";
+                    return result;
+                }
+
+                var conInfo = new BConString().GetConString(tableInfo?.Data.ConStringKeyID);
+                if (string.IsNullOrWhiteSpace(conInfo?.KeyID) || string.IsNullOrWhiteSpace(conInfo?.ConnectionString))
+                {
+                    result.Msg = "获取链接信息失败";
+                    return result;
+                }
+
+                IDBOperator op = new DBOperator();
+                var con = ConnectionHelper.GetSqlSugarClientByConString(conInfo.ConnectionString);
+                ////获取当前数据库所有的表
+                var tables = op.GetAllTables(tableInfo.Data.DatabaseName, con);
+                if (tableInfo.Data.SplitType == SplitType.None)
+                {
+                    result.Success = true;
+                    result.Msg = "无建表规则，无需处理";
+                    return result;
+                }
+
+                var ddl = op.GetTableDDL(tableInfo.Data.DatabaseName, tableInfo.Data.MaxTableName, con);
+                string nexttable = this.GetNextTableName(tableInfo.Data.SplitType, tableInfo.Data.Format);
+                string use = $" use {tableInfo.Data.DatabaseName};";
+                string createRes = use + ddl.Replace(tableInfo.Data.MaxTableName, $"{tableInfo.Data.TableName}{nexttable}");
+                var res = op.ExecuteSql(createRes, con);
+                if (res)
+                {
+                    tableInfo.Data.MaxTableName = $"{ tableInfo.Data.TableName}{ nexttable}";
+                    var upRes = new BTable().UpdateTableByKeyId(tableInfo.Data);
+                    if (upRes.Success == false)
+                    {
+                        result.Msg = "更新最大表失败";
+                        return result;
+                    }
+                }
+
+                result.Success = res;
+                return result;
+            }
+            catch (Exception e)
+            {
+                NLog.LogManager.GetCurrentClassLogger().Error(e);
+                result.Msg = e.Message;
+                return result;
+            }
         }
 
         /// <summary>
@@ -155,6 +207,7 @@ namespace DBOPerator.Biz.Task
             string tableName = currentTable;
             string minProfix = string.Empty;
             string maxProfix = string.Empty;
+            string format = string.Empty;
             int hashCount = 0;
             SplitType splitType = SplitType.None;
             try
@@ -186,6 +239,7 @@ namespace DBOPerator.Biz.Task
                 DateTime time = DateTime.MinValue;
                 if (DateTime.TryParseExact(regMatch.Value, "yyyyMMdd", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time) && time.Year > 2017)
                 {
+                    format = "yyyyMMdd";
                     splitType = SplitType.Day;
                     return;
                 }
@@ -193,18 +247,21 @@ namespace DBOPerator.Biz.Task
                 ////year>2017区分按小时分表的逻辑 yyMMddHH的场景
                 if (DateTime.TryParseExact(regMatch.Value, "yyyyMM", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time) && time.Year > 2017)
                 {
+                    format = "yyyyMM";
                     splitType = SplitType.Month;
                     return;
                 }
 
                 if (DateTime.TryParseExact(regMatch.Value, "yyMM", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time))
                 {
+                    format = "yyMM";
                     splitType = SplitType.Month;
                     return;
                 }
 
                 if (DateTime.TryParseExact(regMatch.Value, "yyyy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time) && time.Year > 2017)
                 {
+                    format = "yyyy";
                     splitType = SplitType.Year;
                     return;
                 }
@@ -214,6 +271,7 @@ namespace DBOPerator.Biz.Task
                 {
                     hashCount = list.Count;
                     splitType = SplitType.HASH;
+                    format = list.Count.ToString();
                     return;
                 }
             }
@@ -224,6 +282,7 @@ namespace DBOPerator.Biz.Task
                 table.MinTableName = $"{tableName}{minProfix}";
                 table.SplitType = splitType;
                 table.TableName = $"{tableName}";
+                table.Format = format;
             }
         }
 
@@ -245,6 +304,23 @@ namespace DBOPerator.Biz.Task
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 获取下个表名
+        /// </summary>
+        /// <param name="type">分表类型</param>
+        /// <param name="format">分表模板</param>
+        /// <returns>结果</returns>
+        private string GetNextTableName(SplitType type, string format)
+        {
+            switch (type)
+            {
+                case SplitType.Day: return DateTime.Now.AddDays(1).ToString(format);
+                case SplitType.Month: return DateTime.Now.AddMonths(1).ToString(format);
+                case SplitType.Year: return DateTime.Now.AddYears(1).ToString(format);
+                default: return string.Empty;
+            }
         }
     }
 }
