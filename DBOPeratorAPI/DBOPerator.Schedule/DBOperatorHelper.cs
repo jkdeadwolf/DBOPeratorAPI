@@ -31,15 +31,16 @@ namespace DBOPerator.Schedule
         /// </summary>
         /// <param name="maxRunTimes">最大执行次数</param>
         /// <returns>结果</returns>
-        public static  void ExecuteTaskAsync(string taskId)
+        public static Result ExecuteTaskAsync(string taskId)
         {
             try
             {
-                HttpClientHelper.GetWithHeader<Result<List<DBTask>>>($"{ConfigHelper.APIUrl}/DB/ExecuteTask?taskID={taskId}", new Dictionary<string, string>(), "ExecuteTask");
+                return HttpClientHelper.GetWithHeader<Result>($"{ConfigHelper.APIUrl}/DB/ExecuteTask?taskID={taskId}", new Dictionary<string, string>(), "ExecuteTask");
             }
             catch (Exception e)
             {
                 NLog.LogManager.GetCurrentClassLogger().Error(e);
+                return new Result() { Msg = e.Message };
             }
         }
     }

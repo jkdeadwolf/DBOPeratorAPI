@@ -31,8 +31,8 @@ namespace DBOPerator.Schedule
                 foreach (var item in tasks.Data)
                 {
                     base.ShowMessage($"开始处理任务：{item.KeyID}");
-                    DBOperatorHelper.ExecuteTaskAsync(item.KeyID);
-                    base.ShowMessage($"结束处理任务：{item.KeyID}");
+                    var res = DBOperatorHelper.ExecuteTaskAsync(item.KeyID);
+                    base.ShowMessage($"结束处理任务：{item.KeyID},{res.Success} {res.Msg}");
                 }
             }
             catch (Exception e)
