@@ -9,6 +9,31 @@
             1根据数据库标号 执行整库建表 2根据数据库主键执行表分析 3 根据表主键执行建表 4根据表主键执行表分析
             </summary>
         </member>
+        <member name="F:DBOPerator.Model.BusinessType.初始化">
+            <summary>
+            初始化表以及任务信息
+            </summary>
+        </member>
+        <member name="F:DBOPerator.Model.BusinessType.整库建表">
+            <summary>
+            根据数据库id建表
+            </summary>
+        </member>
+        <member name="F:DBOPerator.Model.BusinessType.整库表分析">
+            <summary>
+            根据数据库id 进行整库表比对
+            </summary>
+        </member>
+        <member name="F:DBOPerator.Model.BusinessType.表建表">
+            <summary>
+            根据表id建表
+            </summary>
+        </member>
+        <member name="F:DBOPerator.Model.BusinessType.表分析">
+            <summary>
+            根据表id执行表分析
+            </summary>
+        </member>
         <member name="T:DBOPerator.Model.ConString">
             <summary>
             数据库链接model
@@ -142,6 +167,11 @@
         <member name="P:DBOPerator.Model.DBTask.AddTime">
             <summary>
             添加事件
+            </summary>
+        </member>
+        <member name="P:DBOPerator.Model.DBTask.AddAccount">
+            <summary>
+            添加的账号
             </summary>
         </member>
         <member name="P:DBOPerator.Model.DBTask.ModifyTime">

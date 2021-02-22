@@ -33,19 +33,10 @@ namespace DBOPerator.Biz.Task
         }
 
         /// <summary>
-        /// 执行表分析
+        /// 初始化数据库信息
         /// </summary>
         /// <returns>结果</returns>
-        public Result ExecuteConAnalysisTables()
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// 根据数据库连接建表
-        /// </summary>
-        /// <returns>创建结果</returns>
-        public Result ExecuteConCreateTables()
+        public Result InitDatabaseInfo()
         {
             Result result = new Result();
             try
@@ -81,7 +72,12 @@ namespace DBOPerator.Biz.Task
                 ///根据规则判断表的生成规则，并生成tables的表信息
                 var tables = this.BuildTableModel(dBAndTables, conInfo);
                 var res = new BTable().AddTableBatch(tables);
-                return res;
+                ////筛选需要定期建表的
+                var cycleTables = tables.FindAll(p => p.SplitType != SplitType.None && p.SplitType != SplitType.HASH);
+                List<DBTask> tasks = new List<DBTask>();
+                cycleTables.ForEach(p => tasks.Add(new DBTask() { BusinessKeyID = p.TabelKeyID, BusinessType = BusinessType.表建表 }));
+                var insertRes = new BTask().AddTasks(tasks);
+                return insertRes;
             }
             catch (Exception e)
             {
@@ -90,6 +86,24 @@ namespace DBOPerator.Biz.Task
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 执行表分析
+        /// </summary>
+        /// <returns>结果</returns>
+        public Result ExecuteConAnalysisTables()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 根据数据库连接建表
+        /// </summary>
+        /// <returns>创建结果</returns>
+        public Result ExecuteConCreateTables()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

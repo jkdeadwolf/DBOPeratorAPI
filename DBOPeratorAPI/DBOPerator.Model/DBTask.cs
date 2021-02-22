@@ -67,6 +67,11 @@ namespace DBOPerator.Model
         public DateTime AddTime { get; set; } = DateTime.Now;
 
         /// <summary>
+        /// 添加的账号
+        /// </summary>
+        public string AddAccount { get; set; } = string.Empty;
+
+        /// <summary>
         /// 修改时间
         /// </summary>
         public DateTime ModifyTime { get; set; } = DateTime.Now;

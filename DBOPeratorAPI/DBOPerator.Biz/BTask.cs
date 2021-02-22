@@ -22,6 +22,19 @@ namespace DBOPerator.Biz
         }
 
         /// <summary>
+        /// 批量添加任务
+        /// </summary>
+        /// <param name="paramIn">入参</param>
+        /// <returns>结果</returns>
+        public Result AddTasks(List<DBTask> lists)
+        {
+            lists.ForEach(p => p.KeyID = KeyIDHelper.Generator());
+            var con = ConnectionHelper.GetSqlSugarClient();
+            var rt = con.Insertable<DBTask>(lists).ExecuteCommand();
+            return new Result() { Success = rt > 0 };
+        }
+
+        /// <summary>
         /// 删除db任务
         /// </summary>
         /// <param name="keyID">主键</param>
@@ -171,6 +184,7 @@ namespace DBOPerator.Biz
 
                 switch (taskInfo.BusinessType)
                 {
+                    case BusinessType.初始化: result = deal.InitDatabaseInfo(); break;
                     case BusinessType.整库建表: result = deal.ExecuteConCreateTables(); break;
                     case BusinessType.整库表分析: result = deal.ExecuteConAnalysisTables(); break;
                     case BusinessType.表建表: result = deal.ExecuteTableCreateTables(); break;

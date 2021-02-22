@@ -3,6 +3,7 @@ using DBOPerator.Biz;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace DBOPerator.Biz.Tests
 {
@@ -14,7 +15,8 @@ namespace DBOPerator.Biz.Tests
         {
             try
             {
-                var res = new BConString().AddConString("server=192.168.10.24;user id=root;password=testadmin;persistsecurityinfo=True;database=DBOPerator;charset=utf8;AllowUserVariables=True;SslMode=none");
+                var res = new BConString().AddConString("server=192.168.10.24;user id=root;password=testadmin");
+                Thread.Sleep(2000);
             }
             catch (Exception)
             {

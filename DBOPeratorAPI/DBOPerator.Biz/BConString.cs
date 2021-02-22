@@ -37,8 +37,8 @@ namespace DBOPerator.Biz
                         new BTask().AddDBTask(new DBTask()
                         {
                             BusinessKeyID = data.KeyID,
-                            BusinessType = BusinessType.整库建表,
-                            NextExecuteTime = DateTime.Now
+                            BusinessType = BusinessType.初始化,
+                            NextExecuteTime = DateTime.Now,
                         });
                     }
                     catch (Exception e)

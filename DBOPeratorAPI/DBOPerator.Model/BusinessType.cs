@@ -30,7 +30,7 @@ namespace DBOPerator.Model
         表建表 = 3,
 
         /// <summary>
-        /// 根据表id进行表对比
+        /// 根据表id执行表分析
         /// </summary>
         表分析 = 4
     }

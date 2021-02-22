@@ -11,6 +11,12 @@ namespace DBOPerator.Biz
     public interface ITaskDeal
     {
         /// <summary>
+        /// 初始化数据库信息
+        /// </summary>
+        /// <returns></returns>
+        Result InitDatabaseInfo();
+
+        /// <summary>
         /// 执行整库建表
         /// </summary>
         /// <returns>结果</returns>
