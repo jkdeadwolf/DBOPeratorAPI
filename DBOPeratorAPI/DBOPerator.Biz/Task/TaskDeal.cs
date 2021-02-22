@@ -77,6 +77,11 @@ namespace DBOPerator.Biz.Task
                 List<DBTask> tasks = new List<DBTask>();
                 cycleTables.ForEach(p => tasks.Add(new DBTask() { BusinessKeyID = p.TabelKeyID, BusinessType = BusinessType.表建表 }));
                 var insertRes = new BTask().AddTasks(tasks);
+                if (insertRes.Success)
+                {
+                    this.TaskInfo.NextExecuteTime = DateTime.MaxValue;
+                }
+
                 return insertRes;
             }
             catch (Exception e)
@@ -118,16 +123,17 @@ namespace DBOPerator.Biz.Task
         public Result ExecuteTableCreateTables()
         {
             Result result = new Result();
+            TableInfo tableInfo = null;
             try
             {
-                var tableInfo = new BTable().GetTableByKeyId(this.TaskInfo.BusinessKeyID);
-                if (tableInfo?.Success == false || tableInfo.Data == null || string.IsNullOrWhiteSpace(tableInfo?.Data?.TabelKeyID))
+                tableInfo = new BTable().GetTableByKeyId(this.TaskInfo.BusinessKeyID)?.Data;
+                if (string.IsNullOrWhiteSpace(tableInfo?.TabelKeyID))
                 {
                     result.Msg = "获取表信息失败";
                     return result;
                 }
 
-                var conInfo = new BConString().GetConString(tableInfo?.Data.ConStringKeyID);
+                var conInfo = new BConString().GetConString(tableInfo?.ConStringKeyID);
                 if (string.IsNullOrWhiteSpace(conInfo?.KeyID) || string.IsNullOrWhiteSpace(conInfo?.ConnectionString))
                 {
                     result.Msg = "获取链接信息失败";
@@ -137,23 +143,23 @@ namespace DBOPerator.Biz.Task
                 IDBOperator op = new DBOperator();
                 var con = ConnectionHelper.GetSqlSugarClientByConString(conInfo.ConnectionString);
                 ////获取当前数据库所有的表
-                var tables = op.GetAllTables(tableInfo.Data.DatabaseName, con);
-                if (tableInfo.Data.SplitType == SplitType.None)
+                var tables = op.GetAllTables(tableInfo.DatabaseName, con);
+                if (tableInfo.SplitType == SplitType.None)
                 {
                     result.Success = true;
                     result.Msg = "无建表规则，无需处理";
                     return result;
                 }
 
-                var ddl = op.GetTableDDL(tableInfo.Data.DatabaseName, tableInfo.Data.MaxTableName, con);
-                string nexttable = this.GetNextTableName(tableInfo.Data.SplitType, tableInfo.Data.Format);
-                string use = $" use {tableInfo.Data.DatabaseName};";
-                string createRes = use + ddl.Replace(tableInfo.Data.MaxTableName, $"{tableInfo.Data.TableName}{nexttable}");
+                var ddl = op.GetTableDDL(tableInfo.DatabaseName, tableInfo.MaxTableName, con);
+                string nexttable = this.GetNextTableName(tableInfo.SplitType, tableInfo.Format);
+                string use = $" use {tableInfo.DatabaseName};";
+                string createRes = use + ddl.Replace(tableInfo.MaxTableName, $"{tableInfo.TableName}{nexttable}");
                 var res = op.ExecuteSql(createRes, con);
                 if (res)
                 {
-                    tableInfo.Data.MaxTableName = $"{ tableInfo.Data.TableName}{ nexttable}";
-                    var upRes = new BTable().UpdateTableByKeyId(tableInfo.Data);
+                    tableInfo.MaxTableName = $"{ tableInfo.TableName}{ nexttable}";
+                    var upRes = new BTable().UpdateTableByKeyId(tableInfo);
                     if (upRes.Success == false)
                     {
                         result.Msg = "更新最大表失败";
@@ -175,8 +181,26 @@ namespace DBOPerator.Biz.Task
 
                 return result;
             }
+            finally
+            {
+                if (result.Success)
+                {
+                    this.TaskInfo.NextExecuteTime = this.GetNextExecuteTime(tableInfo.SplitType);
+                }
+            }
         }
 
+        private DateTime GetNextExecuteTime(SplitType splitType)
+        {
+            switch (splitType)
+            {
+                case SplitType.Day: return DateTime.Now.AddDays(1).Date;
+                case SplitType.HASH: return DateTime.MaxValue;
+                case SplitType.Month: return DateTime.Now.AddDays(-DateTime.Now.Day).AddMonths(1).Date;
+                case SplitType.Year: return DateTime.Now.AddDays(-DateTime.Now.DayOfYear).AddYears(1).AddMonths(-1);
+                default: return DateTime.MaxValue;
+            }
+        }
         /// <summary>
         /// 构建表model
         /// </summary>
@@ -293,6 +317,14 @@ namespace DBOPerator.Biz.Task
                     hashCount = list.Count;
                     splitType = SplitType.HASH;
                     format = list.Count.ToString();
+                    tableName = tableNamePrefix;
+                    return;
+                }
+
+                if (DateTime.TryParseExact(regMatch.Value, "yy", System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out time) && time.Year > 2017)
+                {
+                    format = "yy";
+                    splitType = SplitType.Year;
                     tableName = tableNamePrefix;
                     return;
                 }
