@@ -13,3 +13,8 @@
 /DBOPeratorAPI/DBOPerator.BizTests/bin/Debug/netcoreapp3.1
 /DBOPeratorAPI/DBOPerator.BizTests/obj
 /DBOPeratorAPI/DBOPerator.Schedule/bin/Debug/netcoreapp3.1
+/DBOPeratorAPI/DBOPerator.Biz/bin/Release/netstandard2.0
+/DBOPeratorAPI/DBOPerator.Model/bin/Release/netstandard2.0
+/DBOPeratorAPI/DBOPeratorAPI/.config
+/DBOPeratorAPI/DBOPeratorAPI/bin/Release/netcoreapp3.1
+/DBOPeratorAPI/DBOPeratorAPI/Properties/PublishProfiles
