@@ -142,14 +142,6 @@ namespace DBOPerator.Biz.Task
 
                 IDBOperator op = new DBOperator();
                 var con = ConnectionHelper.GetSqlSugarClientByConString(conInfo.ConnectionString);
-                ////获取当前数据库所有的表
-                var tables = op.GetAllTables(tableInfo.DatabaseName, con);
-                if (tableInfo.SplitType == SplitType.None)
-                {
-                    result.Success = true;
-                    result.Msg = "无建表规则，无需处理";
-                    return result;
-                }
 
                 var ddl = op.GetTableDDL(tableInfo.DatabaseName, tableInfo.MaxTableName, con);
                 string nexttable = this.GetNextTableName(tableInfo.SplitType, tableInfo.Format);

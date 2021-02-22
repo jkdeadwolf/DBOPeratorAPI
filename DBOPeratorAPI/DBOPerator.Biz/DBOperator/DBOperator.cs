@@ -31,7 +31,7 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public List<Table> GetAllTables(string dataBaseName, SqlSugarClient client)
         {
-            string sql = $"select table_name,TABLE_COMMENT from information_schema.tables where table_schema='{dataBaseName}'";
+            string sql = $"select table_name,TABLE_COMMENT from information_schema.tables where table_schema='{dataBaseName}' and table_type='BASE TABLE'";
             return client.Ado.SqlQuery<Table>(sql);
         }
 
