@@ -196,7 +196,7 @@ namespace DBOPerator.Biz.Task
 
                 foreach (var table in tables[item])
                 {
-                    if (result.Exists(p => ((table.Table_Name.StartsWith(p.TableName) && p.SplitType != SplitType.None) || (table.Table_Name == p.TableName && p.SplitType == SplitType.None)) && string.IsNullOrWhiteSpace(p.TableName) == false && p.DatabaseName == item) == false)
+                    if (result.Exists(p => ((Regex.Replace(table.Table_Name, Pattern, string.Empty) == p.TableName && p.SplitType != SplitType.None) || (table.Table_Name == p.TableName && p.SplitType == SplitType.None)) && string.IsNullOrWhiteSpace(p.TableName) == false && p.DatabaseName == item) == false)
                     {
                         TableInfo model = new TableInfo();
                         model.AddTime = DateTime.Now;
