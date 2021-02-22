@@ -168,6 +168,11 @@ namespace DBOPerator.Biz.Task
             {
                 NLog.LogManager.GetCurrentClassLogger().Error(e);
                 result.Msg = e.Message;
+                if (e.Message.Contains("already exists"))
+                {
+                    result.Success = true;
+                }
+
                 return result;
             }
         }
