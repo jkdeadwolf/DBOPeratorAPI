@@ -200,7 +200,7 @@ namespace DBOPerator.Biz
             finally
             {
                 this.BuildTaskResult(taskInfo, result);
-                this.UpdateTask(taskInfo);
+                this.UpdateTask(taskInfo); 
                 ////每次执行都要增加任务执行次数
                 this.AddTaskRunTimes(taskID);
             }
