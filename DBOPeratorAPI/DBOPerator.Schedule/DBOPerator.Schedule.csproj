@@ -34,4 +34,10 @@
     <ProjectReference Include="..\DBOPerator.Model\DBOPerator.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

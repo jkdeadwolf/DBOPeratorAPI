@@ -40,6 +40,10 @@ namespace DBOPerator.Schedule
                 base.ShowMessage($"系统出错：{e.ToString()}");
                 NLog.LogManager.GetCurrentClassLogger().Error(e);
             }
+            finally
+            {
+                base.ShowMessage($"一轮执行完毕，休眠：{ConfigHelper.MinuteTimerSleepMinute}分钟");
+            }
         }
     }
 }
