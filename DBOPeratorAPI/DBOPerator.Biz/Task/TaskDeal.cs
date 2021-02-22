@@ -241,10 +241,8 @@ namespace DBOPerator.Biz.Task
                 }
 
                 ////去掉数字，看看他的原型是什么
-                tableName = Regex.Replace(currentTable, Pattern, string.Empty);
-
-
-                var sameTables = tables.FindAll(p => p.Table_Name.StartsWith(tableName));
+                string tableNamePrefix = Regex.Replace(currentTable, Pattern, string.Empty);
+                var sameTables = tables.FindAll(p => p.Table_Name.StartsWith(tableNamePrefix));
                 var list = this.GetAllValue(sameTables);
                 list.Sort();
                 minProfix = list[0].ToString();
@@ -255,6 +253,7 @@ namespace DBOPerator.Biz.Task
                 {
                     format = "yyyyMMdd";
                     splitType = SplitType.Day;
+                    tableName = tableNamePrefix;
                     return;
                 }
 
@@ -263,6 +262,7 @@ namespace DBOPerator.Biz.Task
                 {
                     format = "yyyyMM";
                     splitType = SplitType.Month;
+                    tableName = tableNamePrefix;
                     return;
                 }
 
@@ -270,6 +270,7 @@ namespace DBOPerator.Biz.Task
                 {
                     format = "yyMM";
                     splitType = SplitType.Month;
+                    tableName = tableNamePrefix;
                     return;
                 }
 
@@ -277,6 +278,7 @@ namespace DBOPerator.Biz.Task
                 {
                     format = "yyyy";
                     splitType = SplitType.Year;
+                    tableName = tableNamePrefix;
                     return;
                 }
 
@@ -286,6 +288,7 @@ namespace DBOPerator.Biz.Task
                     hashCount = list.Count;
                     splitType = SplitType.HASH;
                     format = list.Count.ToString();
+                    tableName = tableNamePrefix;
                     return;
                 }
             }
