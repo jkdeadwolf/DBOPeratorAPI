@@ -9,9 +9,29 @@ namespace DBOPerator.Model
     /// </summary>
     public enum BusinessType
     {
+        /// <summary>
+        /// 初始化表以及任务信息
+        /// </summary>
+        初始化 = 0,
+
+        /// <summary>
+        /// 根据数据库id建表
+        /// </summary>
         整库建表 = 1,
+
+        /// <summary>
+        /// 根据数据库id 进行整库表比对
+        /// </summary>
         整库表分析 = 2,
+
+        /// <summary>
+        /// 根据表id建表
+        /// </summary>
         表建表 = 3,
+
+        /// <summary>
+        /// 根据表id进行表对比
+        /// </summary>
         表分析 = 4
     }
 }
