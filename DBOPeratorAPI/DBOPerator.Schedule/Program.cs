@@ -12,6 +12,7 @@ namespace DBOPerator.Schedule
                  .ConfigureServices((hostContext, services) =>
                  {
                      services.AddHostedService(p => new MinuteTimerHostExecutor(ConfigHelper.MinuteTimerSleepMinute));
+                     ////services.AddHostedService(p => new DayTimerHostExecutor(ConfigHelper.DayTimerSleepMinute));
                  });
 
             await build.RunConsoleAsync();

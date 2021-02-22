@@ -261,9 +261,9 @@ namespace DBOPeratorAPI.Controllers
         /// </summary>
         /// <param name="taskID">任务编号</param>
         [HttpGet]
-        public void ExecuteTask(string taskID)
+        public Result ExecuteTask(string taskID)
         {
-            new BTask().ExecuteTask(taskID);
+            return new BTask().ExecuteTask(taskID);
         }
 
         /// <summary>

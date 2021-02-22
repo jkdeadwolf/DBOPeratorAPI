@@ -163,7 +163,7 @@ namespace DBOPerator.Biz
         /// 执行task
         /// </summary>
         /// <param name="taskID">任务编号</param>
-        public void ExecuteTask(string taskID)
+        public Result ExecuteTask(string taskID)
         {
             Result result = null;
             DBTask taskInfo = null;
@@ -204,6 +204,8 @@ namespace DBOPerator.Biz
                 ////每次执行都要增加任务执行次数
                 this.AddTaskRunTimes(taskID);
             }
+
+            return result;
         }
 
         /// <summary>
