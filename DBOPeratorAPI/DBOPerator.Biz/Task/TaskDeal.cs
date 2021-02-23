@@ -187,10 +187,10 @@ namespace DBOPerator.Biz.Task
             switch (splitType)
             {
                 case SplitType.Day: return DateTime.Now.AddDays(1).Date;
-                case SplitType.HASH: return DateTime.MaxValue;
-                case SplitType.Month: return DateTime.Now.AddDays(-DateTime.Now.Day).AddMonths(1).Date;
-                case SplitType.Year: return DateTime.Now.AddDays(-DateTime.Now.DayOfYear).AddYears(1).AddMonths(-1);
-                default: return DateTime.MaxValue;
+                case SplitType.HASH: return DateTime.MaxValue.Date;
+                case SplitType.Month: return DateTime.Now.AddDays(-DateTime.Now.Day + 1).Date.AddMonths(1); ////下个月第一天
+                case SplitType.Year: return DateTime.Now.AddDays(-DateTime.Now.DayOfYear + 1).Date.AddMonths(11); ////下一年12月份
+                default: return DateTime.MaxValue.Date;
             }
         }
         /// <summary>

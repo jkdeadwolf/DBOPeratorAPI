@@ -109,6 +109,11 @@
             表备注
             </summary>
         </member>
+        <member name="P:DBOPerator.Model.Table.Table_Type">
+            <summary>
+            表类型
+            </summary>
+        </member>
         <member name="T:DBOPerator.Model.DBTask">
             <summary>
             数据库任务
