@@ -8,7 +8,6 @@ namespace DBOPerator.Schedule
     {
         static async System.Threading.Tasks.Task Main(string[] args)
         {
-            var dasas = DateTime.Now.AddDays(-DateTime.Now.DayOfYear + 1).Date.AddMonths(11);
             var build = new HostBuilder()
                  .ConfigureServices((hostContext, services) =>
                  {
