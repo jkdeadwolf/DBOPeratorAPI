@@ -15,5 +15,10 @@ namespace DBOPerator.Model
         /// 表备注
         /// </summary>
         public string Table_Comment { get; set; }
+
+        /// <summary>
+        /// 表类型
+        /// </summary>
+        public string Table_Type { get; set; }
     }
 }
