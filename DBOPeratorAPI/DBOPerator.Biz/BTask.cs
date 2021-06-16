@@ -137,7 +137,7 @@ namespace DBOPerator.Biz
         public bool StartTask(string taskID)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            return con.Updateable<DBTask>().SetColumns(p => new DBTask() { ExecuteStatus = 2, ExecuteMsg = string.Empty }).Where(p => p.KeyID == taskID && p.ExecuteStatus == 1).ExecuteCommand() > 0;
+            return con.Updateable<DBTask>().SetColumns(p => new DBTask() { ExecuteStatus = 2, ExecuteMsg = string.Empty }).Where(p => p.KeyID == taskID && p.NextExecuteTime < DateTime.Now).ExecuteCommand() > 0;
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace DBOPerator.Biz
             finally
             {
                 this.BuildTaskResult(taskInfo, result);
-                this.UpdateTask(taskInfo); 
+                this.UpdateTask(taskInfo);
                 ////每次执行都要增加任务执行次数
                 this.AddTaskRunTimes(taskID);
             }
