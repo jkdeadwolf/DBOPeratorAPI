@@ -18,7 +18,7 @@ namespace DBOPerator.Schedule
         /// <summary>
         /// 按天数执行的休眠时间
         /// </summary>
-        public static int DayTimerSleepMinute => Convert.ToInt32(GetConfig("SleepHour"));
+        public static int DayTimerSleepMinute => Convert.ToInt32(GetConfig("SleepDays"));
 
         /// <summary>
         /// api地址
