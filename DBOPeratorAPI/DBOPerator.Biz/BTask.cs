@@ -16,7 +16,7 @@ namespace DBOPerator.Biz
         public Result AddDBTask(DBTask paramIn)
         {
             var con = ConnectionHelper.GetSqlSugarClient();
-            paramIn.KeyID = KeyIDHelper.Generator();
+            //paramIn.KeyID = KeyIDHelper.Generator();
             var rt = con.Insertable<DBTask>(paramIn).ExecuteCommand();
             return new Result() { Success = rt > 0 };
         }
@@ -28,7 +28,7 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public Result AddTasks(List<DBTask> lists)
         {
-            lists.ForEach(p => p.KeyID = KeyIDHelper.Generator());
+           // lists.ForEach(p => p.KeyID = KeyIDHelper.Generator());
             var con = ConnectionHelper.GetSqlSugarClient();
             var rt = con.Insertable<DBTask>(lists).ExecuteCommand();
             return new Result() { Success = rt > 0 };
