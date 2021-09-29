@@ -115,7 +115,7 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="model">入参</param>
         /// <returns>结果</returns>
-        public bool UpdateTask(DBTask model)
+        public bool UpdateTask(DBTask model, Result result)
         {
             try
             {
@@ -145,8 +145,13 @@ namespace DBOPerator.Biz
         /// </summary>
         /// <param name="taskID">任务编号</param>
         /// <returns>结果</returns>
-        public bool AddTaskRunTimes(string taskID)
+        public bool AddTaskRunTimes(string taskID, Result result)
         {
+            if (result.Success)
+            {
+                return true;
+            }
+
             try
             {
                 var con = ConnectionHelper.GetSqlSugarClient();
@@ -200,9 +205,9 @@ namespace DBOPerator.Biz
             finally
             {
                 this.BuildTaskResult(taskInfo, result);
-                this.UpdateTask(taskInfo);
+                this.UpdateTask(taskInfo, result);
                 ////每次执行都要增加任务执行次数
-                this.AddTaskRunTimes(taskID);
+                this.AddTaskRunTimes(taskID, result);
             }
 
             return result;

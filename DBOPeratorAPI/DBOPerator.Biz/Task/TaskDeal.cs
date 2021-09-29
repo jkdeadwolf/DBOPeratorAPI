@@ -170,6 +170,7 @@ namespace DBOPerator.Biz.Task
                 if (e.Message.Contains("already exists"))
                 {
                     result.Success = true;
+                    result.Msg = string.Empty;
                 }
 
                 return result;
