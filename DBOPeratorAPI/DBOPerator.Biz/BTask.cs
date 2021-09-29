@@ -28,9 +28,9 @@ namespace DBOPerator.Biz
         /// <returns>结果</returns>
         public Result AddTasks(List<DBTask> lists)
         {
-           // lists.ForEach(p => p.KeyID = KeyIDHelper.Generator());
+            // lists.ForEach(p => p.KeyID = KeyIDHelper.Generator());
             var con = ConnectionHelper.GetSqlSugarClient();
-            var rt = con.Insertable<DBTask>(lists).ExecuteCommand();
+            var rt = con.Saveable<DBTask>(lists).UpdateIgnoreColumns(p => new { p.NextExecuteTime }).ExecuteCommand();
             return new Result() { Success = rt > 0 };
         }
 

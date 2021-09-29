@@ -79,8 +79,7 @@ namespace DBOPerator.Biz.Task
                 var insertRes = new BTask().AddTasks(tasks);
                 if (insertRes.Success)
                 {
-                    this.TaskInfo.NextExecuteTime = this.TaskInfo.NextExecuteTime.AddDays(10);
-                    this.TaskInfo.ExecuteTimes = 0;
+                    this.TaskInfo.NextExecuteTime = DateTime.Now.AddDays(1);
                 }
 
                 return insertRes;
