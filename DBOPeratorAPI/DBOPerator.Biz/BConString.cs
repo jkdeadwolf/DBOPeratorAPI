@@ -17,6 +17,11 @@ namespace DBOPerator.Biz
         /// <returns>添加结果</returns>
         public Result AddConString(string connectionString)
         {
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                return new Result() { Msg = "入参为空" };
+            }
+
             var con = ConnectionHelper.GetSqlSugarClient();
             var data = new ConString()
             {
@@ -48,7 +53,7 @@ namespace DBOPerator.Biz
                 });
             }
 
-            return new Result() { Success = runRt > 0, Msg = "更新失败" };
+            return new Result() { Success = runRt > 0, Msg = runRt > 0 ? string.Empty : "写入失败" };
         }
 
 
