@@ -14,7 +14,7 @@ namespace DBOPerator.Model
         /// 任务主键
         /// </summary>
         [SugarColumn(IsPrimaryKey = true)]
-        public string KeyID { get; set; }
+        public string KeyID { get { return $"{BusinessKeyID}_{BusinessType.GetHashCode()}"; } }
 
         /// <summary>
         /// 业务主键
