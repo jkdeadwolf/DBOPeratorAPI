@@ -222,7 +222,7 @@ namespace DBOPerator.Biz
         {
             try
             {
-                model.ExecuteStatus = result.Success ? 3 : 4;
+                model.ExecuteStatus = result.Success ? 3 : 1;
                 model.ExecuteMsg = result.Success ? string.Empty : result.Msg;
                 model.ModifyTime = DateTime.Now;
             }
