@@ -15,7 +15,7 @@ namespace DBOPerator.Model
         /// 表编号
         /// </summary>
         [SugarColumn(IsPrimaryKey = true)]
-        public string TabelKeyID { get { return $"{DatabaseName}-{TableName}-{SplitType.ToString()}"; } }
+        public string TabelKeyID { get { return $"{DatabaseName}-{TableName}-{SplitType.ToString()}-{ConStringKeyID}"; } }
 
         /// <summary>
         /// 数据库连接编号
