@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DBOPerator.Model
+﻿namespace DBOPerator.Model
 {
     /// <summary>
     /// 拆分规则

@@ -155,7 +155,7 @@ namespace DBOPerator.Biz
             try
             {
                 var con = ConnectionHelper.GetSqlSugarClient();
-                return con.Updateable<DBTask>().UpdateColumns(p => new { p.ExecuteTimes }).ReSetValue(p => p.ExecuteTimes == p.ExecuteTimes + 1).Where(p => p.KeyID == taskID).ExecuteCommand() > 0;
+                return con.Updateable<DBTask>().SetColumns(p => p.ExecuteTimes == p.ExecuteTimes + 1).Where(p => p.KeyID == taskID).ExecuteCommand() > 0;
             }
             catch (Exception e)
             {

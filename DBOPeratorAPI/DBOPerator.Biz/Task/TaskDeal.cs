@@ -2,9 +2,9 @@
 using SqlSugar;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
+using SplitType = DBOPerator.Model.SplitType;
 
 namespace DBOPerator.Biz.Task
 {
