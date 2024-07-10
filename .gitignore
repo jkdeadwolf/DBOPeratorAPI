@@ -18,3 +18,7 @@
 /DBOPeratorAPI/DBOPeratorAPI/.config
 /DBOPeratorAPI/DBOPeratorAPI/bin/Release/netcoreapp3.1
 /DBOPeratorAPI/DBOPeratorAPI/Properties/PublishProfiles
+/DBOPeratorAPI/.vs/ProjectEvaluation
+/DBOPeratorAPI/DBOPerator.Biz/bin/Debug/netstandard2.1
+/DBOPeratorAPI/DBOPerator.Model/bin/Debug/netstandard2.1
+/DBOPeratorAPI/DBOPerator.Schedule/bin/Debug/net6.0
